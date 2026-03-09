@@ -50,8 +50,8 @@
                         <h1>Enterprise Data Intelligence</h1>
                         <p>Synthesizing structured DBs and unstructured logs.</p>
                     </div>
-                    <div class="model-badge">
-                        <i data-lucide="zap"></i> Llama 3.3 Versatile (200 T/s)
+                    <div class="model-badge" title="Primary: Kimi K2 Instruct | Fallback: Llama 3.3 (Rate Limit Protection)">
+                        <i data-lucide="zap"></i> Kimi K2 Instruct (Groq)
                     </div>
                 </header>
 
@@ -72,7 +72,7 @@
                     </div>
 
                     <div class="input-wrapper">
-                        <button class="icon-btn audio-btn" id="audio-btn" title="Hold to Speak">
+                        <button class="icon-btn audio-btn" id="audio-btn" title="Click to Speak">
                             <i data-lucide="mic"></i>
                         </button>
                         <textarea 
@@ -90,21 +90,36 @@
             <!-- Console Views -->
             <div id="view-postgres" class="console-view" style="display: none;">
                 <div class="console-header glass-panel">
-                    <i data-lucide="database"></i> Postgres SQL Console
+                    <div class="title-group">
+                        <i data-lucide="database"></i> Postgres SQL Console
+                    </div>
+                    <a href="http://localhost:5050" target="_blank" class="external-link-btn" title="Open in New Tab">
+                        <i data-lucide="external-link"></i>
+                    </a>
                 </div>
                 <iframe src="http://localhost:5050" class="console-iframe"></iframe>
             </div>
 
             <div id="view-mongo" class="console-view" style="display: none;">
                 <div class="console-header glass-panel">
-                    <i data-lucide="server"></i> MongoDB Logs Console
+                    <div class="title-group">
+                        <i data-lucide="server"></i> MongoDB Logs Console
+                    </div>
+                    <a href="http://localhost:8081" target="_blank" class="external-link-btn" title="Open in New Tab">
+                        <i data-lucide="external-link"></i>
+                    </a>
                 </div>
                 <iframe src="http://localhost:8081" class="console-iframe"></iframe>
             </div>
 
             <div id="view-neo4j" class="console-view" style="display: none;">
                 <div class="console-header glass-panel">
-                    <i data-lucide="network"></i> Neo4j Graph Console
+                    <div class="title-group">
+                        <i data-lucide="network"></i> Neo4j Graph Console
+                    </div>
+                    <a href="http://localhost:7474" target="_blank" class="external-link-btn" title="Open in New Tab">
+                        <i data-lucide="external-link"></i>
+                    </a>
                 </div>
                 <iframe src="http://localhost:7474" class="console-iframe"></iframe>
             </div>

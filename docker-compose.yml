@@ -20,6 +20,8 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@erprag.com
       PGADMIN_DEFAULT_PASSWORD: adminpassword
+      PGADMIN_CONFIG_X_FRAME_OPTIONS: "'ALLOWALL'"
+      PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION: "False"
     ports:
       - "5050:80"
     depends_on:

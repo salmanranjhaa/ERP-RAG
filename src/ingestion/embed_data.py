@@ -46,7 +46,8 @@ def embed_messages():
     import chromadb
     
     # We use a purely local Chroma memory/disk instance so you don't need a cloud DB
-    chroma_client = chromadb.PersistentClient(path="./chroma_data")
+    CHROMA_PATH = os.getenv("CHROMA_PATH", "../../chroma_data")
+    chroma_client = chromadb.PersistentClient(path=CHROMA_PATH)
     chroma_collection = chroma_client.get_or_create_collection("messages_index")
     vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
 

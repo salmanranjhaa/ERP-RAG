@@ -23,6 +23,39 @@ from llama_index.vector_stores.mongodb import MongoDBAtlasVectorSearch
 # Load env variables
 load_dotenv()
 
+# --- Custom Model Fallback Logic ---
+class GroqWithFallback(Groq):
+    """Custom Groq wrapper to handle rate-limit fallbacks between Kimi and Llama."""
+    def chat(self, messages, **kwargs):
+        try:
+            return super().chat(messages, **kwargs)
+        except Exception as e:
+            if "rate_limit" in str(e).lower() or "429" in str(e):
+                original = self.model
+                fallback = "llama-3.3-70b-versatile" if original == "moonshotai/kimi-k2-instruct-0905" else "moonshotai/kimi-k2-instruct-0905"
+                print(f"\n[RATE LIMIT] {original} hit. Falling back to {fallback}...")
+                self.model = fallback
+                try:
+                    return super().chat(messages, **kwargs)
+                finally:
+                    self.model = original
+            raise e
+
+    def complete(self, prompt, **kwargs):
+        try:
+            return super().complete(prompt, **kwargs)
+        except Exception as e:
+            if "rate_limit" in str(e).lower() or "429" in str(e):
+                original = self.model
+                fallback = "llama-3.3-70b-versatile" if original == "moonshotai/kimi-k2-instruct-0905" else "moonshotai/kimi-k2-instruct-0905"
+                print(f"\n[RATE LIMIT] {original} hit. Falling back to {fallback}...")
+                self.model = fallback
+                try:
+                    return super().complete(prompt, **kwargs)
+                finally:
+                    self.model = original
+            raise e
+
 app = FastAPI(title="ERP RAG Agent Router", description="Conversational RAG using Groq and LlamaIndex")
 
 # Serve frontend directly from backend
@@ -39,12 +72,11 @@ router_query_engine = None
 def initialize_engines():
     global router_query_engine
     
-    print("Initializing Models (Groq + HuggingFace)...")
+    print("Initializing Models (Groq Model Path: Kimi -> Llama Fallback)...")
     # Set up models
-    # We use moonshotai/kimi-k2-instruct-0905, which is heavily optimized for function/tool calling & routing
-    # We use llama-3.3-70b-versatile, which is natively supported and blazing fast on Groq.
-    # Note: Kimi K2 isn't hosted by the official Groq API (it's Moonshot AI).
-    llm = Groq(model="llama-3.3-70b-versatile", api_key=os.environ.get("GROQ_API_KEY"))
+    # Primary: moonshotai/kimi-k2-instruct-0905 (Optimized for routing)
+    # Fallback: llama-3.3-70b-versatile (Blazing fast fallback)
+    llm = GroqWithFallback(model="moonshotai/kimi-k2-instruct-0905", api_key=os.environ.get("GROQ_API_KEY"))
     embed_model = HuggingFaceEmbedding(model_name="all-MiniLM-L6-v2")
     
     # Global settings
@@ -63,17 +95,22 @@ def initialize_engines():
     )
     
     # 2. Chroma Setup (Unstructured Data)
-    print("Connecting to Chroma (Local Vector Store)...")
+    CHROMA_PATH = os.getenv("CHROMA_PATH", "../../chroma_data") # Project Root
+    print(f"Connecting to Chroma (Vector Store at {CHROMA_PATH})...")
     from llama_index.vector_stores.chroma import ChromaVectorStore
     import chromadb
     
-    chroma_client = chromadb.PersistentClient(path="./chroma_data")
+    chroma_client = chromadb.PersistentClient(path=CHROMA_PATH)
     chroma_collection = chroma_client.get_or_create_collection("messages_index")
     vector_store = ChromaVectorStore(chroma_collection=chroma_collection)
     
+    # Check item count
+    count = chroma_collection.count()
+    print(f"Vector Store initialized with {count} documents.")
+    
     # Recreate index over Chroma
     chroma_index = VectorStoreIndex.from_vector_store(vector_store)
-    mongo_query_engine = chroma_index.as_query_engine(similarity_top_k=5)
+    mongo_query_engine = chroma_index.as_query_engine(similarity_top_k=10)
 
     # 3. Build the Agentic Router (Upgraded to Multi-Step Synthesis)
     print("Building Multi-Source Synthesis Agent...")
@@ -82,8 +119,11 @@ def initialize_engines():
         query_engine=sql_query_engine,
         name="sql_analytics_tool",
         description=(
-            "Useful for getting strict quantitative data and ticket relationships. "
-            "Use this to query EXACT ticket hierarchies (blocked_by), assignee logic, salaries, access_levels, and roles."
+            "Useful for getting strict quantitative data from the Postgres database. "
+            "Contains tables: 'users' (user_id, name, department, role, access_level, salary, manager_id) "
+            "and 'tickets' (ticket_id, title, status, priority, assignee_id). "
+            "Use this for employee lookups, salary data, and ticket status counts. "
+            "Always use this when asked for a person's department, role, or salary."
         )
     )
     
@@ -91,9 +131,48 @@ def initialize_engines():
         query_engine=mongo_query_engine,
         name="unstructured_chat_tool",
         description=(
-            "Useful for discovering narrative context, human reasoning, and conversational history across Slack channels. "
-            "Use this for 'why' questions, reading arguments between engineers, finding out WHO is waiting on WHAT beyond what SQL says."
+            "Useful for searching through Slack channel messages and conversational logs. "
+            "Use this for questions about 'what happened', 'why something is blocked', 'project status updates', "
+            "and general engineer conversations. If you need context about a specific project or training status "
+            "mentioned in chat, use this tool."
         )
+    )
+    
+    # 3. Build Neo4j Custom Tool
+    from llama_index.core.query_engine import CustomQueryEngine
+    from neo4j import GraphDatabase
+    neo4j_driver = GraphDatabase.driver("bolt://localhost:7687", auth=("neo4j", "adminpassword"))
+    neo4j_schema = """
+Nodes:
+- Person (user_id, name, role, salary)
+- Ticket (ticket_id, title, type, priority)
+- Department (name)
+- Status (name)
+- Sprint (name)
+
+Relationships:
+- (Person)-[:WORKS_IN]->(Department)
+- (Person)-[:REPORTS_TO]->(Person)
+- (Person)-[:ASSIGNED_TO]->(Ticket)
+- (Person)-[:REPORTED]->(Ticket)
+- (Ticket)-[:BLOCKED_BY]->(Ticket)
+- (Ticket)-[:CURRENT_STATUS]->(Status)
+- (Ticket)-[:ASSIGNED_TO_SPRINT]->(Sprint)
+"""
+
+    class Neo4jCustomQueryEngine(CustomQueryEngine):
+        def custom_query(self, query_str: str):
+            prompt = f"Given the following Neo4j schema:\n{neo4j_schema}\n\nWrite a Cypher query to answer: {query_str}\nOnly return the pure cypher query without any markdown tags or prefix."
+            cypher_query = llm.complete(prompt).text.strip().replace("```cypher", "").replace("```", "")
+            with neo4j_driver.session() as session:
+                result = session.run(cypher_query)
+                records = [dict(record) for record in result]
+            return f"Cypher: {cypher_query}\nRecords: {records}"
+
+    neo4j_tool = QueryEngineTool.from_defaults(
+        query_engine=Neo4jCustomQueryEngine(),
+        name="neo4j_graph_tool",
+        description="Useful for querying complex relationships like chains of command, manager dependencies, or complex ticket blockers (e.g. 'what tickets block X' or 'who is the manager of the person blocking Y')."
     )
     
     # LLMMultiSelector allows the router to read the question, determine it needs BOTH SQL and Vector context,
@@ -101,7 +180,7 @@ def initialize_engines():
     from llama_index.core.selectors import LLMMultiSelector
     router_query_engine = RouterQueryEngine(
         selector=LLMMultiSelector.from_defaults(llm=llm),
-        query_engine_tools=[sql_tool, mongo_tool],
+        query_engine_tools=[sql_tool, mongo_tool, neo4j_tool],
     )
     print("Initialization Complete!")
 
@@ -111,6 +190,7 @@ def on_startup():
 
 class ChatRequest(BaseModel):
     query: str
+    history: list = []
     user_id: str = None # For future RBAC integration
 
 import json
@@ -136,16 +216,41 @@ async def chat_endpoint(request: ChatRequest):
     try:
         # Multi-Source Synthesis
         # We simulate the payload logging since LlamaIndex makes multi-calls
+        # Settings.llm.model will give us the current active model.
+        model_used = Settings.llm.model
+        
+        # 1.5 Context Condensation
+        query_to_submit = request.query
+        if request.history:
+            history_str = "\n".join([f"{m.get('role', 'user')}: {m.get('content', '')}" for m in request.history])
+            condense_prompt = (
+                "Given the following conversation history and the latest user query, "
+                "rewrite the user query to be a standalone query that captures all relevant context from the history. "
+                "Only return the standalone query, without any prefixes, quotes or explanations. If the query is already standalone, return it as is.\n\n"
+                f"Conversation History:\n{history_str}\n\n"
+                f"Latest Query: {request.query}\n\n"
+                "Standalone Query:"
+            )
+            query_to_submit = Settings.llm.complete(condense_prompt).text.strip()
+            
+            logs.append({
+                "step": f"[{model_used}] Context Condensation",
+                "payload": {
+                    "original": request.query,
+                    "condensed": query_to_submit
+                }
+            })
+
         logs.append({
-            "step": "Llama 3.3 Input",
+            "step": f"[{model_used}] Input",
             "payload": {
-                "model": "llama-3.3-70b-versatile",
-                "messages": [{"role": "user", "content": request.query}],
+                "model": model_used,
+                "messages": [{"role": "user", "content": query_to_submit}],
                 "temperature": 0.1
             }
         })
         
-        result = router_query_engine.query(request.query)
+        result = router_query_engine.query(query_to_submit)
         
         # Get which tools it used safely
         meta = getattr(result, "metadata", None) or {}
@@ -156,8 +261,9 @@ async def chat_endpoint(request: ChatRequest):
         else:
             source = str(selections)
             
+        model_used = Settings.llm.model
         logs.append({
-            "step": "Llama 3.3 Output",
+            "step": f"[{model_used}] Output",
             "payload": {
                 "response": str(result),
                 "source_nodes": [str(n.node.get_content()[:200]) + "..." for n in result.source_nodes] if hasattr(result, "source_nodes") else []
@@ -175,8 +281,10 @@ async def chat_endpoint(request: ChatRequest):
         "detailed_logs": logs
     }
 
+from fastapi import Form
+
 @app.post("/chat/audio")
-async def chat_audio_endpoint(audio: UploadFile = File(...)):
+async def chat_audio_endpoint(audio: UploadFile = File(...), history: str = Form("[]")):
     global router_query_engine
     if not router_query_engine:
         raise HTTPException(status_code=500, detail="Engine not initialized")
@@ -219,16 +327,41 @@ async def chat_audio_endpoint(audio: UploadFile = File(...)):
             }
         })
         
+        # 1.5 Context Condensation
+        model_used = Settings.llm.model
+        history_list = json.loads(history)
+        query_to_submit = transcribed_text
+        
+        if history_list:
+            history_str = "\n".join([f"{m.get('role', 'user')}: {m.get('content', '')}" for m in history_list])
+            condense_prompt = (
+                "Given the following conversation history and the latest user query, "
+                "rewrite the user query to be a standalone query that captures all relevant context from the history. "
+                "Only return the standalone query, without any prefixes, quotes or explanations. If the query is already standalone, return it as is.\n\n"
+                f"Conversation History:\n{history_str}\n\n"
+                f"Latest Query: {transcribed_text}\n\n"
+                "Standalone Query:"
+            )
+            query_to_submit = Settings.llm.complete(condense_prompt).text.strip()
+            
+            logs.append({
+                "step": f"[{model_used}] Context Condensation",
+                "payload": {
+                    "original": transcribed_text,
+                    "condensed": query_to_submit
+                }
+            })
+            
         # 2. Pass the transcribed text into the Synthesis RAG Router
         logs.append({
-            "step": "Llama 3.3 Input",
+            "step": f"[{model_used}] Input",
             "payload": {
-                "model": "llama-3.3-70b-versatile",
-                "messages": [{"role": "user", "content": transcribed_text}]
+                "model": model_used,
+                "messages": [{"role": "user", "content": query_to_submit}]
             }
         })
         
-        result = router_query_engine.query(transcribed_text)
+        result = router_query_engine.query(query_to_submit)
         
         # 3. Get Source Reasonings safely
         meta = getattr(result, "metadata", None) or {}
@@ -239,8 +372,9 @@ async def chat_audio_endpoint(audio: UploadFile = File(...)):
         else:
             source = str(selections)
             
+        model_used = Settings.llm.model
         logs.append({
-            "step": "Llama 3.3 Output",
+            "step": f"[{model_used}] Output",
             "payload": {
                 "response": str(result),
                 "source": source

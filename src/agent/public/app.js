@@ -5,6 +5,7 @@ const audioBtn = document.getElementById('audio-btn');
 const recordingIndicator = document.getElementById('recording-indicator');
 const stepsContainer = document.getElementById('steps-container');
 const sidebarNav = document.getElementById('sidebar-nav');
+let conversationHistory = [];
 
 // Tab Switching Logic
 sidebarNav.querySelectorAll('li').forEach(li => {
@@ -38,7 +39,7 @@ function addMessage(text, isUser = false) {
     
     chatHistory.appendChild(msgDiv);
     lucide.createIcons();
-    chatHistory.scrollTo(0, chatHistory.scrollHeight);
+    msgDiv.scrollIntoView({ behavior: 'smooth', block: 'end' });
 }
 
 function updateLog(status, detail, isPayload = false) {
@@ -61,7 +62,7 @@ function updateLog(status, detail, isPayload = false) {
     
     stepsContainer.appendChild(logDiv);
     lucide.createIcons();
-    stepsContainer.scrollTo(0, stepsContainer.scrollHeight);
+    logDiv.scrollIntoView({ behavior: 'smooth', block: 'end' });
 }
 
 function clearLogs() {
@@ -84,11 +85,13 @@ sendBtn.addEventListener('click', async () => {
     
     updateLog("Initializing Query", "Routing through Multi-Source Synthesis Engine...");
     
+    conversationHistory.push({ role: 'user', content: text });
+    
     try {
         const response = await fetch('/chat', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ query: text })
+            body: JSON.stringify({ query: text, history: conversationHistory })
         });
         
         const data = await response.json();
@@ -105,6 +108,7 @@ sendBtn.addEventListener('click', async () => {
 
         updateLog("Synthesis Complete", `Source: ${data.source}`);
         addMessage(data.response);
+        conversationHistory.push({ role: 'assistant', content: data.response });
     } catch (err) {
         addMessage(`Error: ${err.message}`);
         updateLog("Error", err.message);
@@ -144,36 +148,34 @@ async function setupAudio() {
 }
 setupAudio();
 
-// Hold to Record Logic
-audioBtn.addEventListener('mousedown', () => {
+// Click to Record Logic
+audioBtn.addEventListener('click', () => {
     if (!mediaRecorder) return;
-    isRecording = true;
-    audioBtn.classList.add('recording');
-    recordingIndicator.style.display = 'flex';
-    clearLogs();
-    updateLog("Recording", "Microphone Active...");
-    mediaRecorder.start();
-});
-
-audioBtn.addEventListener('mouseup', () => {
-    if (!isRecording) return;
-    isRecording = false;
-    audioBtn.classList.remove('recording');
-    recordingIndicator.style.display = 'none';
-    updateLog("Processing Audio", "Sending to Whisper v3...");
-    mediaRecorder.stop();
-});
-
-audioBtn.addEventListener('mouseleave', () => { // Catch drag-offs
-    if (isRecording) {
-        audioBtn.dispatchEvent(new Event('mouseup'));
+    
+    if (!isRecording) {
+        // Start Recording
+        isRecording = true;
+        audioBtn.classList.add('recording');
+        recordingIndicator.style.display = 'flex';
+        clearLogs();
+        updateLog("Recording", "Microphone Active...");
+        mediaRecorder.start();
+    } else {
+        // Stop Recording
+        isRecording = false;
+        audioBtn.classList.remove('recording');
+        recordingIndicator.style.display = 'none';
+        updateLog("Processing Audio", "Sending to Whisper v3...");
+        mediaRecorder.stop();
     }
 });
+
 
 // Send Audio blob to FastAPI
 async function sendAudio(audioBlob) {
     const formData = new FormData();
     formData.append("audio", audioBlob, "recording.webm");
+    formData.append("history", JSON.stringify(conversationHistory));
 
     try {
         const response = await fetch('/chat/audio', {
@@ -188,6 +190,7 @@ async function sendAudio(audioBlob) {
         }
 
         addMessage(`[Transcribed via Whisper]: ${data.query}`, true);
+        conversationHistory.push({ role: 'user', content: data.query });
         
         if (data.detailed_logs) {
             data.detailed_logs.forEach(log => {
@@ -197,6 +200,7 @@ async function sendAudio(audioBlob) {
 
         updateLog("Synthesis Complete", `Source: ${data.source}`);
         addMessage(data.response);
+        conversationHistory.push({ role: 'assistant', content: data.response });
     } catch (err) {
         addMessage(`Error: ${err.message}`);
         updateLog("Error", err.message);
