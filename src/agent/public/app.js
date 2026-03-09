@@ -4,6 +4,25 @@ const sendBtn = document.getElementById('send-btn');
 const audioBtn = document.getElementById('audio-btn');
 const recordingIndicator = document.getElementById('recording-indicator');
 const stepsContainer = document.getElementById('steps-container');
+const sidebarNav = document.getElementById('sidebar-nav');
+
+// Tab Switching Logic
+sidebarNav.querySelectorAll('li').forEach(li => {
+    li.addEventListener('click', () => {
+        const viewId = li.getAttribute('data-view');
+        if (!viewId) return;
+
+        // Update Sidebar UI
+        sidebarNav.querySelectorAll('li').forEach(item => item.classList.remove('active'));
+        li.classList.add('active');
+
+        // Update Main View
+        document.querySelectorAll('main, .console-view').forEach(view => {
+            view.style.display = 'none';
+        });
+        document.getElementById(`view-${viewId}`).style.display = 'flex';
+    });
+});
 
 // Chat UI
 function addMessage(text, isUser = false) {
@@ -22,16 +41,22 @@ function addMessage(text, isUser = false) {
     chatHistory.scrollTo(0, chatHistory.scrollHeight);
 }
 
-function updateLog(status, detail) {
+function updateLog(status, detail, isPayload = false) {
     if (stepsContainer.innerHTML.includes('Waiting for query')) {
         stepsContainer.innerHTML = '';
     }
     
     const logDiv = document.createElement('div');
-    logDiv.className = 'log-item processing';
+    logDiv.className = 'log-item' + (isPayload ? '' : ' processing');
+    
+    let content = detail;
+    if (typeof detail === 'object') {
+        content = `<pre style="font-size: 0.75rem; color: #66fcf1; background: rgba(0,0,0,0.5); padding: 10px; border-radius: 8px; margin-top: 8px; overflow-x: auto;">${JSON.stringify(detail, null, 2)}</pre>`;
+    }
+
     logDiv.innerHTML = `
-        <div class="log-title"><i data-lucide="loader"></i> ${status}</div>
-        <div class="log-detail">${detail}</div>
+        <div class="log-title"><i data-lucide="${isPayload ? 'code' : 'loader'}"></i> ${status}</div>
+        <div class="log-detail">${content}</div>
     `;
     
     stepsContainer.appendChild(logDiv);
@@ -57,7 +82,7 @@ sendBtn.addEventListener('click', async () => {
     addMessage(text, true);
     clearLogs();
     
-    updateLog("Initializing Query", "Routing through MoE Engine...");
+    updateLog("Initializing Query", "Routing through Multi-Source Synthesis Engine...");
     
     try {
         const response = await fetch('/chat', {
@@ -72,7 +97,13 @@ sendBtn.addEventListener('click', async () => {
             throw new Error(data.detail || "Unknown Server Error");
         }
         
-        updateLog("Agent Source Result", data.source ? data.source.toString() : "No source");
+        if (data.detailed_logs) {
+            data.detailed_logs.forEach(log => {
+                updateLog(log.step, log.payload, true);
+            });
+        }
+
+        updateLog("Synthesis Complete", `Source: ${data.source}`);
         addMessage(data.response);
     } catch (err) {
         addMessage(`Error: ${err.message}`);
@@ -108,7 +139,7 @@ async function setupAudio() {
         };
     } catch (err) {
         console.error("Microphone access denied:", err);
-        alert("Microphone access is required for Voice Chat.");
+        // Don't alert if it's just a permission issue during background setup
     }
 }
 setupAudio();
@@ -158,7 +189,13 @@ async function sendAudio(audioBlob) {
 
         addMessage(`[Transcribed via Whisper]: ${data.query}`, true);
         
-        updateLog("Agent Source Result", data.source ? data.source.toString() : "No source");
+        if (data.detailed_logs) {
+            data.detailed_logs.forEach(log => {
+                updateLog(log.step, log.payload, true);
+            });
+        }
+
+        updateLog("Synthesis Complete", `Source: ${data.source}`);
         addMessage(data.response);
     } catch (err) {
         addMessage(`Error: ${err.message}`);
