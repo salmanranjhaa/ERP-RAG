@@ -1,0 +1,696 @@
+[
+  {
+    "ticket_id": "TKT-001",
+    "title": "HL7 FHIR Integration Issue with FDA 21 CFR Part 11 Compliance",
+    "description": "The HL7 FHIR integration is not adhering to FDA 21 CFR Part 11 compliance, resulting in critical data discrepancies.",
+    "type": "compliance",
+    "status": "Open",
+    "priority": "Critical",
+    "assignee_id": "U007",
+    "reporter_id": "U013",
+    "blocked_by": [],
+    "customer_account": "Johnson & Johnson",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-002",
+    "title": "AI Anomaly Detection Algorithm Improvements",
+    "description": "The current AI anomaly detection algorithm is not accurately detecting outliers, leading to delayed intervention.",
+    "type": "feature",
+    "status": "In Progress",
+    "priority": "High",
+    "assignee_id": "U015",
+    "reporter_id": "U011",
+    "blocked_by": [],
+    "customer_account": "Pfizer",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-003",
+    "title": "HIPAA Compliance Audit Findings with HL7 FHIR",
+    "description": "The recent HIPAA compliance audit revealed discrepancies between HL7 FHIR data and on-site records.",
+    "type": "compliance",
+    "status": "Awaiting Deployment",
+    "priority": "Critical",
+    "assignee_id": "U009",
+    "reporter_id": "U005",
+    "blocked_by": [],
+    "customer_account": "Novartis",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-004",
+    "title": "Backend Infrastructure Upgrade",
+    "description": "The backend infrastructure upgrade is required to support the increased demand from our largest customer.",
+    "type": "infrastructure",
+    "status": "In QA",
+    "priority": "High",
+    "assignee_id": "U016",
+    "reporter_id": "U018",
+    "blocked_by": [],
+    "customer_account": "Internal",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-005",
+    "title": "HL7 FHIR Data Validation",
+    "description": "The HL7 FHIR data validation process needs to be revised to improve data accuracy and avoid potential errors.",
+    "type": "feature",
+    "status": "Open",
+    "priority": "Medium",
+    "assignee_id": "U014",
+    "reporter_id": "U002",
+    "blocked_by": [],
+    "customer_account": "Roche",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-006",
+    "title": "HL7 FHIR API Endpoints Improvements",
+    "description": "The HL7 FHIR API endpoints need to be improved for better performance and scalability.",
+    "type": "feature",
+    "status": "In Progress",
+    "priority": "High",
+    "assignee_id": "U008",
+    "reporter_id": "U011",
+    "blocked_by": [],
+    "customer_account": "Novartis",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-007",
+    "title": "AI Anomaly Detection Deployment",
+    "description": "The AI anomaly detection algorithm needs to be deployed across the entire platform to improve detection accuracy.",
+    "type": "deployment",
+    "status": "Open",
+    "priority": "Critical",
+    "assignee_id": "U012",
+    "reporter_id": "U005",
+    "blocked_by": [
+      "TKT-001"
+    ],
+    "customer_account": "Internal",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-008",
+    "title": "HL7 FHIR Integration Testing",
+    "description": "The HL7 FHIR integration testing process needs to be revised to cover more test cases and reduce errors.",
+    "type": "infrastructure",
+    "status": "In QA",
+    "priority": "Medium",
+    "assignee_id": "U016",
+    "reporter_id": "U014",
+    "blocked_by": [
+      "TKT-001"
+    ],
+    "customer_account": "Roche",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-009",
+    "title": "AI Anomaly Detection Algorithm Validation",
+    "description": "The AI anomaly detection algorithm validation process needs to be improved to ensure accurate results.",
+    "type": "feature",
+    "status": "Open",
+    "priority": "High",
+    "assignee_id": "U015",
+    "reporter_id": "U012",
+    "blocked_by": [],
+    "customer_account": "Pfizer",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-010",
+    "title": "HL7 FHIR API Security Audit",
+    "description": "The HL7 FHIR API security audit revealed potential vulnerabilities that need to be addressed.",
+    "type": "compliance",
+    "status": "In Progress",
+    "priority": "Critical",
+    "assignee_id": "U018",
+    "reporter_id": "U005",
+    "blocked_by": [],
+    "customer_account": "Johnson & Johnson",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-011",
+    "title": "HIPAA Compliance Issue with HL7 FHIR API Integration",
+    "description": "The HL7 FHIR API integration module is not complying with HIPAA guidelines and needs to be updated to ensure secure data exchange. This issue needs to be addressed to avoid non-compliance penalties. The development team will investigate and update the module according to HIPAA standards.",
+    "type": "compliance",
+    "status": "Open",
+    "priority": "High",
+    "assignee_id": "U016",
+    "reporter_id": "U001",
+    "blocked_by": [],
+    "customer_account": "Internal",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-012",
+    "title": "AI Anomaly Detection Algorithm Needs to be Improved",
+    "description": "The AI anomaly detection algorithm is not accurately identifying potential security threats and needs to be improved to enhance the overall security of the system. This will require an in-depth analysis of the current algorithm and implementation of new machine learning techniques to improve accuracy.",
+    "type": "feature",
+    "status": "Open",
+    "priority": "Medium",
+    "assignee_id": "U017",
+    "reporter_id": "U005",
+    "blocked_by": [],
+    "customer_account": "Internal",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-013",
+    "title": "FDA 21 CFR Part 11 Compliance Test Fails",
+    "description": "The FDA 21 CFR Part 11 compliance test is failing due to issues with electronic records and signatures. The development team will investigate and update the system to comply with the regulations and ensure successful testing.",
+    "type": "compliance",
+    "status": "Blocked",
+    "priority": "Critical",
+    "assignee_id": "U018",
+    "reporter_id": "U002",
+    "blocked_by": [
+      "TKT-001"
+    ],
+    "customer_account": "Internal",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-014",
+    "title": "HL7 FHIR API Integration Needs Performance Improvement",
+    "description": "The HL7 FHIR API integration module is experiencing performance issues and needs to be optimized to ensure smooth data exchange. The development team will analyze the module's performance and implement necessary changes to improve speed and efficiency.",
+    "type": "infrastructure",
+    "status": "In Progress",
+    "priority": "Medium",
+    "assignee_id": "U019",
+    "reporter_id": "U010",
+    "blocked_by": [
+      "TKT-010"
+    ],
+    "customer_account": "Internal",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-015",
+    "title": "Customer Data Security Feature Needs to be Added",
+    "description": "A new feature to enhance customer data security needs to be added to the system. This feature will include data encryption and secure authentication to protect customer information.",
+    "type": "feature",
+    "status": "In BA Review",
+    "priority": "High",
+    "assignee_id": "U020",
+    "reporter_id": "U008",
+    "blocked_by": [],
+    "customer_account": "Internal",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-016",
+    "title": "AI Model Training Time Needs to be Reduced",
+    "description": "The AI model training time is taking too long and needs to be reduced to ensure timely deployment. The development team will investigate and implement necessary changes to optimize the training process.",
+    "type": "feature",
+    "status": "In Progress",
+    "priority": "Medium",
+    "assignee_id": "U021",
+    "reporter_id": "U015",
+    "blocked_by": [],
+    "customer_account": "Internal",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-017",
+    "title": "HL7 FHIR API Integration with Pfizer Needs to be Updated",
+    "description": "The HL7 FHIR API integration with Pfizer needs to be updated to ensure secure data exchange and compliance with HIPAA guidelines. The development team will investigate and update the integration according to the required standards.",
+    "type": "compliance",
+    "status": "Open",
+    "priority": "High",
+    "assignee_id": "U022",
+    "reporter_id": "U006",
+    "blocked_by": [],
+    "customer_account": "Pfizer",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-018",
+    "title": "Customer Data Export Feature Needs to be Added",
+    "description": "A new feature to export customer data needs to be added to the system. This feature will include data encryption and secure authentication to protect customer information.",
+    "type": "feature",
+    "status": "In Progress",
+    "priority": "Medium",
+    "assignee_id": "U023",
+    "reporter_id": "U013",
+    "blocked_by": [],
+    "customer_account": "Internal",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-019",
+    "title": "AI Model Accuracy Needs to be Improved",
+    "description": "The AI model accuracy needs to be improved to ensure timely and accurate predictions. The development team will investigate and implement necessary changes to optimize the model's performance.",
+    "type": "feature",
+    "status": "Blocked",
+    "priority": "Critical",
+    "assignee_id": "U024",
+    "reporter_id": "U011",
+    "blocked_by": [
+      "TKT-005"
+    ],
+    "customer_account": "Internal",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-020",
+    "title": "HL7 FHIR API Integration with Novartis Needs to be Updated",
+    "description": "The HL7 FHIR API integration with Novartis needs to be updated to ensure secure data exchange and compliance with HIPAA guidelines. The development team will investigate and update the integration according to the required standards.",
+    "type": "compliance",
+    "status": "In BA Review",
+    "priority": "High",
+    "assignee_id": "U025",
+    "reporter_id": "U004",
+    "blocked_by": [],
+    "customer_account": "Novartis",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-021",
+    "title": "FDA 21 CFR Part 11 Compliance Issue with HL7 FHIR Data Exchange",
+    "description": "During the integration testing of the HL7 FHIR interface, it was noticed that the data exchange is not complying with FDA 21 CFR Part 11 regulations. This issue needs to be addressed to ensure regulatory compliance.",
+    "type": "compliance",
+    "status": "Open",
+    "priority": "Critical",
+    "assignee_id": "U009",
+    "reporter_id": "U002",
+    "blocked_by": [],
+    "customer_account": "Internal",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-022",
+    "title": "Anomaly AI Model Drift in Pharma Recommendation Engine",
+    "description": "The AI model in the pharma recommendation engine has started to drift and is producing inaccurate recommendations. This needs to be corrected to ensure the engine is working correctly.",
+    "type": "infrastructure",
+    "status": "In QA",
+    "priority": "High",
+    "assignee_id": "U006",
+    "reporter_id": "U008",
+    "blocked_by": [
+      "TKT-001"
+    ],
+    "customer_account": "Internal",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-023",
+    "title": "HIPAA Compliance Issue with Patient Data Encryption",
+    "description": "During the audit of the system, it was noticed that the patient data is not being encrypted in accordance with HIPAA regulations. This issue needs to be addressed to ensure compliance.",
+    "type": "compliance",
+    "status": "In Progress",
+    "priority": "Critical",
+    "assignee_id": "U012",
+    "reporter_id": "U002",
+    "blocked_by": [],
+    "customer_account": "Internal",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-024",
+    "title": "Bug in HL7 FHIR Interface with Incorrect Data Mapping",
+    "description": "There is a bug in the HL7 FHIR interface that is causing incorrect data mapping. This needs to be corrected to ensure accurate data exchange.",
+    "type": "bug",
+    "status": "Blocked",
+    "priority": "Medium",
+    "assignee_id": "U010",
+    "reporter_id": "U005",
+    "blocked_by": [
+      "TKT-006"
+    ],
+    "customer_account": "Johnson & Johnson",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-025",
+    "title": "Feature Request for Real-time Analytics Dashboard",
+    "description": "There is a feature request from one of our customers to create a real-time analytics dashboard to provide insights into their pharma operations. This needs to be implemented to meet the customer's requirements.",
+    "type": "feature",
+    "status": "Open",
+    "priority": "High",
+    "assignee_id": "U013",
+    "reporter_id": "U015",
+    "blocked_by": [],
+    "customer_account": "Pfizer",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-026",
+    "title": "AI Model Training Issue with Missing Data Records",
+    "description": "The AI model is not being trained correctly due to missing data records. This needs to be addressed to ensure accurate model training.",
+    "type": "infrastructure",
+    "status": "In Progress",
+    "priority": "Medium",
+    "assignee_id": "U014",
+    "reporter_id": "U008",
+    "blocked_by": [],
+    "customer_account": "Internal",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-027",
+    "title": "Deployment Issue with New Pharma Recommendation Engine",
+    "description": "There is a deployment issue with the new pharma recommendation engine that is causing it to not function correctly. This needs to be corrected to ensure the engine is working correctly.",
+    "type": "deployment",
+    "status": "Awaiting Deployment",
+    "priority": "High",
+    "assignee_id": "U017",
+    "reporter_id": "U003",
+    "blocked_by": [],
+    "customer_account": "Novartis",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-028",
+    "title": "Compliance Issue with FDA 21 CFR Part 11 Audit Logs",
+    "description": "During the audit of the system, it was noticed that the audit logs are not being stored in accordance with FDA 21 CFR Part 11 regulations. This issue needs to be addressed to ensure compliance.",
+    "type": "compliance",
+    "status": "Open",
+    "priority": "Critical",
+    "assignee_id": "U021",
+    "reporter_id": "U006",
+    "blocked_by": [
+      "TKT-010"
+    ],
+    "customer_account": "Internal",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-029",
+    "title": "Feature Request for Real-time Data Visualization",
+    "description": "There is a feature request from one of our customers to create a real-time data visualization dashboard to provide insights into their pharma operations. This needs to be implemented to meet the customer's requirements.",
+    "type": "feature",
+    "status": "In Progress",
+    "priority": "High",
+    "assignee_id": "U022",
+    "reporter_id": "U012",
+    "blocked_by": [],
+    "customer_account": "Roche",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-030",
+    "title": "Anomaly with AI Model Prediction Accuracy",
+    "description": "The AI model prediction accuracy has started to decrease. This needs to be corrected to ensure accurate predictions.",
+    "type": "infrastructure",
+    "status": "Closed",
+    "priority": "Critical",
+    "assignee_id": "U002",
+    "reporter_id": "U008",
+    "blocked_by": [
+      "TKT-019"
+    ],
+    "customer_account": "Internal",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-031",
+    "title": "FDA 21 CFR Part 11 Compliance Audit",
+    "description": "Perform a comprehensive audit of the ERP system to ensure compliance with FDA 21 CFR Part 11 regulations.",
+    "type": "compliance",
+    "status": "Open",
+    "priority": "High",
+    "assignee_id": "U017",
+    "reporter_id": "U001",
+    "blocked_by": [],
+    "customer_account": "Johnson & Johnson",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-032",
+    "title": "HL7 FHIR Interface Integration",
+    "description": "Integrate the HL7 FHIR interface with the ERP system to enable seamless data exchange with healthcare providers.",
+    "type": "feature",
+    "status": "In Progress",
+    "priority": "Medium",
+    "assignee_id": "U024",
+    "reporter_id": "U002",
+    "blocked_by": [
+      "TKT-025"
+    ],
+    "customer_account": "Pfizer",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-033",
+    "title": "HIPAA Compliance for Patient Data",
+    "description": "Ensure that patient data stored in the ERP system is compliant with HIPAA regulations to protect sensitive information.",
+    "type": "compliance",
+    "status": "Open",
+    "priority": "High",
+    "assignee_id": "U012",
+    "reporter_id": "U005",
+    "blocked_by": [],
+    "customer_account": "Internal",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-034",
+    "title": "AI Anomaly Detection for Fraudulent Activity",
+    "description": "Implement an AI-powered anomaly detection system to identify and prevent fraudulent activity within the ERP system.",
+    "type": "infrastructure",
+    "status": "In Progress",
+    "priority": "Critical",
+    "assignee_id": "U021",
+    "reporter_id": "U006",
+    "blocked_by": [
+      "TKT-028"
+    ],
+    "customer_account": "Novartis",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-035",
+    "title": "Sprint 2025-Q1-3 Bug Fixing",
+    "description": "Identify and fix bugs in the ERP system to ensure smooth operation during the Sprint 2025-Q1-3 timeframe.",
+    "type": "bug",
+    "status": "Open",
+    "priority": "Low",
+    "assignee_id": "U011",
+    "reporter_id": "U010",
+    "blocked_by": [],
+    "customer_account": "Internal",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-036",
+    "title": "Roche Customer Portal Development",
+    "description": "Develop a customer portal for Roche to enable secure access to their account information and order history within the ERP system.",
+    "type": "feature",
+    "status": "In Progress",
+    "priority": "Medium",
+    "assignee_id": "U020",
+    "reporter_id": "U003",
+    "blocked_by": [
+      "TKT-026"
+    ],
+    "customer_account": "Roche",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-037",
+    "title": "Sprint 2025-Q1-3 Deployment",
+    "description": "Deploy the ERP system changes during the Sprint 2025-Q1-3 timeframe to ensure timely delivery of features and fixes.",
+    "type": "deployment",
+    "status": "Open",
+    "priority": "High",
+    "assignee_id": "U008",
+    "reporter_id": "U014",
+    "blocked_by": [],
+    "customer_account": "Internal",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-038",
+    "title": "Novartis Regulatory Compliance",
+    "description": "Ensure that the ERP system meets all regulatory requirements for Novartis to avoid any potential fines or penalties.",
+    "type": "compliance",
+    "status": "Open",
+    "priority": "High",
+    "assignee_id": "U016",
+    "reporter_id": "U007",
+    "blocked_by": [],
+    "customer_account": "Novartis",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-039",
+    "title": "Pfizer Customer Support Enhancements",
+    "description": "Enhance the customer support portal for Pfizer to provide a better user experience and increase satisfaction ratings.",
+    "type": "feature",
+    "status": "In Progress",
+    "priority": "Medium",
+    "assignee_id": "U013",
+    "reporter_id": "U004",
+    "blocked_by": [
+      "TKT-027"
+    ],
+    "customer_account": "Pfizer",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-040",
+    "title": "Internal ERP System Performance Optimization",
+    "description": "Optimize the ERP system performance to improve response times and reduce the risk of server crashes within the internal environment.",
+    "type": "infrastructure",
+    "status": "Open",
+    "priority": "Critical",
+    "assignee_id": "U009",
+    "reporter_id": "U018",
+    "blocked_by": [
+      "TKT-030"
+    ],
+    "customer_account": "Internal",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-041",
+    "title": "Error in HL7 FHIR integration with FDA 21 CFR Part 11 compliance check",
+    "description": "There is an intermittently occurring error with the HL7 FHIR integration, resulting in a non-compliant submission to the FDA 21 CFR Part 11 server. This error has been reported multiple times and needs immediate attention to prevent non-compliance fines.",
+    "type": "compliance",
+    "status": "In Progress",
+    "priority": "High",
+    "assignee_id": "U007",
+    "reporter_id": "U001",
+    "blocked_by": [],
+    "customer_account": "Johnson & Johnson",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-042",
+    "title": "HIPAA compliance vulnerability with AI anomaly detection",
+    "description": "Our AI anomaly detection system has detected a HIPAA compliance vulnerability in the data processing pipeline. This vulnerability needs to be resolved to prevent exposure of sensitive patient data.",
+    "type": "compliance",
+    "status": "Open",
+    "priority": "Critical",
+    "assignee_id": "U014",
+    "reporter_id": "U002",
+    "blocked_by": [
+      "TKT-002"
+    ],
+    "customer_account": "Pfizer",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-043",
+    "title": "Performance issue with HL7 FHIR server",
+    "description": "The HL7 FHIR server is experiencing a performance issue, resulting in slow data processing times and timeouts. This needs to be resolved to prevent impact on daily operations.",
+    "type": "infrastructure",
+    "status": "In Progress",
+    "priority": "High",
+    "assignee_id": "U021",
+    "reporter_id": "U003",
+    "blocked_by": [
+      "TKT-005"
+    ],
+    "customer_account": "Novartis",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-044",
+    "title": "Error in data migration script",
+    "description": "The data migration script has encountered an error during the data migration process. This needs to be resolved to prevent data loss and ensure data integrity.",
+    "type": "bug",
+    "status": "Blocked",
+    "priority": "Medium",
+    "assignee_id": "U015",
+    "reporter_id": "U004",
+    "blocked_by": [
+      "TKT-008"
+    ],
+    "customer_account": "Internal",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-045",
+    "title": "Feature request for new medication management system",
+    "description": "There is a requirement from the business team to implement a new medication management system to improve patient safety and reduce medication errors.",
+    "type": "feature",
+    "status": "In BA Review",
+    "priority": "Low",
+    "assignee_id": "U016",
+    "reporter_id": "U005",
+    "blocked_by": [],
+    "customer_account": "Roche",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-046",
+    "title": "Deployment issue with new server",
+    "description": "The new server has been deployed, but it is not functioning correctly. This needs to be resolved to prevent impact on daily operations.",
+    "type": "deployment",
+    "status": "Awaiting Deployment",
+    "priority": "High",
+    "assignee_id": "U017",
+    "reporter_id": "U006",
+    "blocked_by": [
+      "TKT-011"
+    ],
+    "customer_account": "Internal",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-047",
+    "title": "Error in data import process",
+    "description": "The data import process has encountered an error, resulting in incomplete data import. This needs to be resolved to prevent impact on daily operations.",
+    "type": "bug",
+    "status": "Open",
+    "priority": "Medium",
+    "assignee_id": "U018",
+    "reporter_id": "U007",
+    "blocked_by": [
+      "TKT-012"
+    ],
+    "customer_account": "Johnson & Johnson",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-048",
+    "title": "Compliance issue with 21 CFR Part 11 regulation",
+    "description": "Our system has failed a compliance audit for the 21 CFR Part 11 regulation, resulting in non-compliance fines. This needs to be resolved to prevent further fines.",
+    "type": "compliance",
+    "status": "In Progress",
+    "priority": "Critical",
+    "assignee_id": "U019",
+    "reporter_id": "U008",
+    "blocked_by": [
+      "TKT-013"
+    ],
+    "customer_account": "Pfizer",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-049",
+    "title": "Error in HL7 FHIR integration with Novartis",
+    "description": "There is an error with the HL7 FHIR integration with Novartis, resulting in non-compliant data submissions. This needs to be resolved to prevent non-compliance fines.",
+    "type": "compliance",
+    "status": "Open",
+    "priority": "High",
+    "assignee_id": "U020",
+    "reporter_id": "U009",
+    "blocked_by": [
+      "TKT-014"
+    ],
+    "customer_account": "Novartis",
+    "sprint": "Sprint 2025-Q1-3"
+  },
+  {
+    "ticket_id": "TKT-050",
+    "title": "Performance issue with database queries",
+    "description": "The database queries are experiencing performance issues, resulting in slow data retrieval times. This needs to be resolved to prevent impact on daily operations.",
+    "type": "infrastructure",
+    "status": "In Progress",
+    "priority": "High",
+    "assignee_id": "U021",
+    "reporter_id": "U010",
+    "blocked_by": [
+      "TKT-015"
+    ],
+    "customer_account": "Internal",
+    "sprint": "Sprint 2025-Q1-3"
+  }
+]

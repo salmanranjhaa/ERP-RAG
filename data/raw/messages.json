@@ -1,0 +1,777 @@
+[
+  {
+    "message_id": "MSG-1000",
+    "channel": "#general",
+    "author_id": "U001",
+    "content": "Just got word from Sophia Patel in DevOps that our TKT-016: AI Model Training Time Needs to be Reduced ticket is moving forward. We should be seeing some performance boosts soon! Fingers crossed!",
+    "timestamp": "2026-02-01T10:00:00"
+  },
+  {
+    "message_id": "MSG-1001",
+    "channel": "#general",
+    "author_id": "U003",
+    "content": "Thanks Emily Wilson for the update! Can we also get a status on TKT-014: HL7 FHIR API Integration Needs Performance Improvement? We need to prioritize our Pfizer integration.",
+    "timestamp": "2026-02-01T10:30:00"
+  },
+  {
+    "message_id": "MSG-1002",
+    "channel": "#general",
+    "author_id": "U008",
+    "content": "Just had a call with Novartis and they're getting anxious about our delayed TKT-020: HL7 FHIR API Integration with Novartis Needs to be Updated ticket. Can someone please give me a ETA update?",
+    "timestamp": "2026-02-01T11:45:00"
+  },
+  {
+    "message_id": "MSG-1003",
+    "channel": "#general",
+    "author_id": "U015",
+    "content": "Just deployed the latest AI Anomaly Detection update and I'm seeing some weird anomalies. Can someone from the DevOps team take a look at TKT-006: HL7 FHIR API Endpoints Improvements?",
+    "timestamp": "2026-02-03T16:15:00"
+  },
+  {
+    "message_id": "MSG-1004",
+    "channel": "#general",
+    "author_id": "U022",
+    "content": "Just got the test results back from J&J for TKT-011: HIPAA Compliance Issue with HL7 FHIR API Integration. It's not looking good... we need to escalate this ASAP",
+    "timestamp": "2026-02-04T12:10:00"
+  },
+  {
+    "message_id": "MSG-1005",
+    "channel": "#general",
+    "author_id": "U012",
+    "content": "Good news! We finally got the FDA 21 CFR Part 11 Compliance test to pass on TKT-013: FDA 21 CFR Part 11 Compliance Test Fails. Thanks to the team for their hard work!",
+    "timestamp": "2026-02-05T13:50:00"
+  },
+  {
+    "message_id": "MSG-1006",
+    "channel": "#general",
+    "author_id": "U016",
+    "content": "I've been going over the code for TKT-012: AI Anomaly Detection Algorithm Needs to be Improved and I think I found the issue. Can we schedule a code review?",
+    "timestamp": "2026-02-06T09:20:00"
+  },
+  {
+    "message_id": "MSG-1007",
+    "channel": "#general",
+    "author_id": "U024",
+    "content": "We need to move TKT-015: Customer Data Security Feature Needs to be Added forward. This customer is getting impatient...",
+    "timestamp": "2026-02-07T11:05:00"
+  },
+  {
+    "message_id": "MSG-1008",
+    "channel": "#general",
+    "author_id": "U013",
+    "content": "The new AI Model Accuracy update is causing issues. Can we revert TKT-019: AI Model Accuracy Needs to be Improved until we figure out what's going on?",
+    "timestamp": "2026-02-07T15:05:00"
+  },
+  {
+    "message_id": "MSG-1009",
+    "channel": "#general",
+    "author_id": "U009",
+    "content": "Just got word from Benjamin Lee in QA that TKT-008: HL7 FHIR Integration Testing is moving forward. Keep up the great work, team!",
+    "timestamp": "2026-02-08T10:25:00"
+  },
+  {
+    "message_id": "MSG-1010",
+    "channel": "#general",
+    "author_id": "U018",
+    "content": "We need to prioritize TKT-017: HL7 FHIR API Integration with Pfizer Needs to be Updated. This customer is getting anxious...",
+    "timestamp": "2026-02-08T13:30:00"
+  },
+  {
+    "message_id": "MSG-1011",
+    "channel": "#general",
+    "author_id": "U006",
+    "content": "I've been working on the AI Model Training Time update and I think I can get it done by the end of the week. Will keep everyone updated on TKT-016",
+    "timestamp": "2026-02-09T16:50:00"
+  },
+  {
+    "message_id": "MSG-1012",
+    "channel": "#general",
+    "author_id": "U002",
+    "content": "Great job, team! We just deployed the new HL7 FHIR API Endpoints update and it's looking solid. Kudos to Ryan Thompson for leading the charge on TKT-006",
+    "timestamp": "2026-02-10T15:35:00"
+  },
+  {
+    "message_id": "MSG-1013",
+    "channel": "#engineering",
+    "author_id": "U005",
+    "content": "Still waiting on Ryan to merge the latest HL7 FHIR API changes. Anyone know when he's available to take a look?",
+    "timestamp": "2026-02-10T14:00:00Z"
+  },
+  {
+    "message_id": "MSG-1014",
+    "channel": "#engineering",
+    "author_id": "U002",
+    "content": "Just merged the changes, but I think there might be an issue with the HL7 FHIR integration testing. Need Sophia to take a closer look",
+    "timestamp": "2026-02-10T14:05:00Z"
+  },
+  {
+    "message_id": "MSG-1015",
+    "channel": "#engineering",
+    "author_id": "U007",
+    "content": "Just got word from Pfizer that their HL7 FHIR API integration is still blocked due to our ongoing issues. We need to prioritize TKT-017 ASAP",
+    "timestamp": "2026-02-10T15:30:00Z"
+  },
+  {
+    "message_id": "MSG-1016",
+    "channel": "#engineering",
+    "author_id": "U015",
+    "content": "I've been reviewing TKT-016 and I'm not convinced we can reduce the AI model training time without compromising accuracy. Need Emily Wilson to weigh in on this",
+    "timestamp": "2026-02-11T10:45:00Z"
+  },
+  {
+    "message_id": "MSG-1017",
+    "channel": "#engineering",
+    "author_id": "U013",
+    "content": "Emily and I have reviewed the AI model training time and we think we can make some adjustments to speed it up. Need to discuss with the team",
+    "timestamp": "2026-02-11T11:00:00Z"
+  },
+  {
+    "message_id": "MSG-1018",
+    "channel": "#engineering",
+    "author_id": "U006",
+    "content": "Just got word that Novartis is experiencing issues with our HL7 FHIR API integration. We need to get TKT-020 fixed ASAP",
+    "timestamp": "2026-02-12T14:15:00Z"
+  },
+  {
+    "message_id": "MSG-1019",
+    "channel": "#engineering",
+    "author_id": "U001",
+    "content": "The good news is that Emily and I were able to optimize the AI model training time! Now we just need to wait for QA to test the changes",
+    "timestamp": "2026-02-13T16:00:00Z"
+  },
+  {
+    "message_id": "MSG-1020",
+    "channel": "#engineering",
+    "author_id": "U011",
+    "content": "I've started reviewing the changes and I think we're on the right track. Need to discuss with Olivia Lee about the impact on the backend infrastructure",
+    "timestamp": "2026-02-14T10:20:00Z"
+  },
+  {
+    "message_id": "MSG-1021",
+    "channel": "#engineering",
+    "author_id": "U019",
+    "content": "Olivia and I have discussed the backend infrastructure and we think we can make some adjustments to accommodate the changes. Need to get Ryan to merge the updates",
+    "timestamp": "2026-02-14T11:15:00Z"
+  },
+  {
+    "message_id": "MSG-1022",
+    "channel": "#engineering",
+    "author_id": "U008",
+    "content": "Just talked to Emily and we're thinking of adding a new feature to the API to handle customer data exports. Need to discuss with the team",
+    "timestamp": "2026-02-15T14:30:00Z"
+  },
+  {
+    "message_id": "MSG-1023",
+    "channel": "#engineering",
+    "author_id": "U016",
+    "content": "I've been reviewing the API changes and I think we're close to resolving the issues. Still need to test the changes thoroughly before deploying",
+    "timestamp": "2026-02-16T16:00:00Z"
+  },
+  {
+    "message_id": "MSG-1024",
+    "channel": "#engineering",
+    "author_id": "U012",
+    "content": "The team has worked hard to resolve the issues and I'm happy to report that we've deployed the changes successfully! TKT-016 is now closed",
+    "timestamp": "2026-02-17T17:45:00Z"
+  },
+  {
+    "message_id": "MSG-1025",
+    "channel": "#dev-ops-alerts",
+    "author_id": "U010",
+    "content": "Just had an update from Sophia Patel on TKT-011. Looks like HIPAA compliance still needs improvement after yesterday's review. Let's get on this ASAP to avoid further delays.",
+    "timestamp": "2026-02-05T14:30:00.000Z"
+  },
+  {
+    "message_id": "MSG-1026",
+    "channel": "#dev-ops-alerts",
+    "author_id": "U021",
+    "content": "Can someone confirm if we're getting TKT-012 pushed to In Progress? Caleb Brooks asked about the status and I want to give him an update.",
+    "timestamp": "2026-02-06T11:45:00.000Z"
+  },
+  {
+    "message_id": "MSG-1027",
+    "channel": "#dev-ops-alerts",
+    "author_id": "U006",
+    "content": "TKT-016 is making progress. Evelyn Hernandez just sent an update on the AI model training time reduction. We're looking at a 30% improvement.",
+    "timestamp": "2026-02-07T10:00:00.000Z"
+  },
+  {
+    "message_id": "MSG-1028",
+    "channel": "#dev-ops-alerts",
+    "author_id": "U013",
+    "content": "Abigail Patel, can you look into TKT-003? We need to move forward with the HIPAA compliance audit findings on HL7 FHIR. Pfizer's waiting on this.",
+    "timestamp": "2026-02-08T16:00:00.000Z"
+  },
+  {
+    "message_id": "MSG-1029",
+    "channel": "#dev-ops-alerts",
+    "author_id": "U004",
+    "content": "Ryan Thompson just confirmed TKT-012 will be moved to In Progress. Thanks, Ryan! This will keep the project moving.",
+    "timestamp": "2026-02-10T13:30:00.000Z"
+  },
+  {
+    "message_id": "MSG-1030",
+    "channel": "#dev-ops-alerts",
+    "author_id": "U022",
+    "content": "We finally have a green light for TKT-020! Novartis is cleared to move forward with HL7 FHIR API integration. Julian White, congrats on your work on this ticket.",
+    "timestamp": "2026-02-11T15:30:00.000Z"
+  },
+  {
+    "message_id": "MSG-1031",
+    "channel": "#dev-ops-alerts",
+    "author_id": "U019",
+    "content": "Benjamin Lee and I just finished a successful test of the HL7 FHIR API Security Audit from TKT-010. We're one step closer to compliance with J&J's requirements.",
+    "timestamp": "2026-02-12T12:15:00.000Z"
+  },
+  {
+    "message_id": "MSG-1032",
+    "channel": "#dev-ops-alerts",
+    "author_id": "U015",
+    "content": "Ava Hernandez and I are having trouble reproducining the FDA 21 CFR Part 11 compliance issue on TKT-013. Can Emily Brooks jump in and help us troubleshoot this?",
+    "timestamp": "2026-02-13T16:30:00.000Z"
+  },
+  {
+    "message_id": "MSG-1033",
+    "channel": "#dev-ops-alerts",
+    "author_id": "U009",
+    "content": "Lucas Russell confirmed that TKT-016 has seen significant improvements in AI model training time. We're reducing the training time by 20%!",
+    "timestamp": "2026-02-14T11:45:00.000Z"
+  },
+  {
+    "message_id": "MSG-1034",
+    "channel": "#dev-ops-alerts",
+    "author_id": "U020",
+    "content": "Just had a great call with Pfizer's HL7 FHIR API integration team. We're making great progress on TKT-017. Thanks to everyone working on this ticket!",
+    "timestamp": "2026-02-15T14:00:00.000Z"
+  },
+  {
+    "message_id": "MSG-1035",
+    "channel": "#dev-ops-alerts",
+    "author_id": "U023",
+    "content": "Sophia Patel, I think we need to push TKT-014 to In Progress. Can you check with Ben and see if we're cleared to move forward with HL7 FHIR API integration performance improvements?",
+    "timestamp": "2026-02-17T16:45:00.000Z"
+  },
+  {
+    "message_id": "MSG-1036",
+    "channel": "#dev-ops-alerts",
+    "author_id": "U016",
+    "content": "Abigail, please move TKT-014 to In Progress. Caleb Brooks confirmed we're cleared to move forward with the improvements. Also, let's get the team on TKT-014 together for a review next week.",
+    "timestamp": "2026-02-18T13:00:00.000Z"
+  },
+  {
+    "thread_id": "MSG-1037",
+    "channel": "#qa-team",
+    "author_id": "U005",
+    "content": "Just spent the last 2 hours debugging the HL7 FHIR Integration Issue with FDA 21 CFR Part 11 Compliance (TKT-001). Any help from @Ryan Thompson would be greatly appreciated!",
+    "timestamp": "2026-02-10T14:30:00"
+  },
+  {
+    "thread_id": "MSG-1038",
+    "channel": "#qa-team",
+    "author_id": "U015",
+    "content": "Just finished testing the AI Anomaly Detection Deployment (TKT-007). Looking forward to getting it fully rolled out to our Pfizer customers!",
+    "timestamp": "2026-02-12T10:15:00"
+  },
+  {
+    "thread_id": "MSG-1039",
+    "channel": "#qa-team",
+    "author_id": "U013",
+    "content": "Has anyone seen the latest status update on the Backend Infrastructure Upgrade (TKT-004)? We need to move forward ASAP!",
+    "timestamp": "2026-02-15T11:45:00"
+  },
+  {
+    "thread_id": "MSG-1040",
+    "channel": "#qa-team",
+    "author_id": "U002",
+    "content": "I've been going over the HL7 FHIR API Endpoints Improvements (TKT-006) and I think I've found the source of the issue. Let's schedule a meeting to discuss.",
+    "timestamp": "2026-02-18T13:20:00"
+  },
+  {
+    "thread_id": "MSG-1041",
+    "channel": "#qa-team",
+    "author_id": "U014",
+    "content": "Just got word from our J&J customers that the AI Anomaly Detection Algorithm is still failing to detect anomalies. We really need to get this sorted!",
+    "timestamp": "2026-02-20T15:00:00"
+  },
+  {
+    "thread_id": "MSG-1042",
+    "channel": "#qa-team",
+    "author_id": "U016",
+    "content": "Working on the AI Model Training Time Needs to be Reduced (TKT-016). Has anyone come up with a viable solution yet?",
+    "timestamp": "2026-02-22T09:30:00"
+  },
+  {
+    "thread_id": "MSG-1043",
+    "channel": "#qa-team",
+    "author_id": "U006",
+    "content": "Just finished reviewing the HL7 FHIR Integration Testing (TKT-008) and I'm satisfied with the results. We're one step closer to compliance!",
+    "timestamp": "2026-02-24T11:45:00"
+  },
+  {
+    "thread_id": "MSG-1044",
+    "channel": "#qa-team",
+    "author_id": "U003",
+    "content": "We need to discuss the HIPAA Compliance Audit Findings with HL7 FHIR (TKT-003) ASAP. Please let me know a time that works for everyone.",
+    "timestamp": "2026-02-27T14:00:00"
+  },
+  {
+    "thread_id": "MSG-1045",
+    "channel": "#qa-team",
+    "author_id": "U012",
+    "content": "Just got word that the AI Anomaly Detection Algorithm Needs to be Improved (TKT-012) is still a priority for our Novartis customers",
+    "timestamp": "2026-03-01T10:15:00"
+  },
+  {
+    "thread_id": "MSG-1046",
+    "channel": "#qa-team",
+    "author_id": "U009",
+    "content": "Working on the Customer Data Export Feature Needs to be Added (TKT-018). Let me know if this is a feasible request from our customers.",
+    "timestamp": "2026-03-03T13:30:00"
+  },
+  {
+    "thread_id": "MSG-1047",
+    "channel": "#qa-team",
+    "author_id": "U019",
+    "content": "Just reviewed the AI Model Accuracy Needs to be Improved (TKT-019) and I think we need to revisit our testing strategy.",
+    "timestamp": "2026-03-05T11:45:00"
+  },
+  {
+    "thread_id": "MSG-1048",
+    "channel": "#qa-team",
+    "author_id": "U021",
+    "content": "Celebrating our successful deployment of the HL7 FHIR API Integration with Pfizer (TKT-017)! Great team effort!",
+    "timestamp": "2026-03-08T18:00:00"
+  },
+  "{\"message_id\": \"MSG-1049\", \"channel\": \"#sales-wins\", \"author_id\": \"U015\", \"content\": \"Just spoke with Novartis, they're still having issues with the HL7 FHIR API integration. Need to get TKT-020 back on track!\", \"timestamp\": \"2026-02-10T14:30:00\"}",
+  "{\"message_id\": \"MSG-1050\", \"channel\": \"#sales-wins\", \"author_id\": \"U014\", \"content\": \"Just saw that Sophia Patel and Ava Hernandez are working on TKT-016, AI model training time. Hope they can make some progress!\", \"timestamp\": \"2026-02-10T15:00:00\"}",
+  "{\"message_id\": \"MSG-1051\", \"channel\": \"#sales-wins\", \"author_id\": \"U013\", \"content\": \"Pfizer is pushing hard for the AI anomaly detection deployment. Can we get TKT-007 moving faster?\", \"timestamp\": \"2026-02-10T15:30:00\"}",
+  "{\"message_id\": \"MSG-1052\", \"channel\": \"#sales-wins\", \"author_id\": \"U009\", \"content\": \"Good news, we just passed the HIPAA compliance audit for the HL7 FHIR integration! Huge shoutout to Ryan and Oliver for their hard work on TKT-003.\", \"timestamp\": \"2026-02-10T16:00:00\"}",
+  "{\"message_id\": \"MSG-1053\", \"channel\": \"#sales-wins\", \"author_id\": \"U006\", \"content\": \"Just saw the latest on TKT-014, HL7 FHIR API integration performance. Hope the improvements can keep up with Pfizer's expectations.\", \"timestamp\": \"2026-02-10T17:00:00\"}",
+  "{\"message_id\": \"MSG-1054\", \"channel\": \"#sales-wins\", \"author_id\": \"U005\", \"content\": \"Benjamin and Isabella are making good progress on the AI anomaly detection algorithm validation for TKT-009. Let's keep the momentum going!\", \"timestamp\": \"2026-02-10T18:00:00\"}",
+  "{\"message_id\": \"MSG-1055\", \"channel\": \"#sales-wins\", \"author_id\": \"U002\", \"content\": \"Just got word from J&J that they're looking to integrate our HL7 FHIR API with their existing infrastructure. That's a huge win!\", \"timestamp\": \"2026-02-11T09:00:00\"}",
+  "{\"message_id\": \"MSG-1056\", \"channel\": \"#sales-wins\", \"author_id\": \"U011\", \"content\": \"TKT-010 is still in progress. Need to get the AI model training time down to meet Pfizer's expectations.\", \"timestamp\": \"2026-02-11T10:00:00\"}",
+  "{\"message_id\": \"MSG-1057\", \"channel\": \"#sales-wins\", \"author_id\": \"U004\", \"content\": \"Just spoke with Novartis, they're having issues with the HL7 FHIR API integration. Need to get TKT-020 back on track!\", \"timestamp\": \"2026-02-11T11:00:00\"}",
+  "{\"message_id\": \"MSG-1058\", \"channel\": \"#sales-wins\", \"author_id\": \"U018\", \"content\": \"Just saw that Emily Brooks and Ava Hernandez are working on the customer data security feature for TKT-015. Hope they can get it added soon!\", \"timestamp\": \"2026-02-11T12:00:00\"}",
+  "{\"message_id\": \"MSG-1059\", \"channel\": \"#sales-wins\", \"author_id\": \"U010\", \"content\": \"Just got word from J&J that they're looking to integrate our HL7 FHIR API with their existing infrastructure. That's a huge win!\", \"timestamp\": \"2026-02-11T13:00:00\"}",
+  "{\"message_id\": \"MSG-1060\", \"channel\": \"#sales-wins\", \"author_id\": \"U012\", \"content\": \"Benjamin and Isabella are making good progress on the AI anomaly detection algorithm validation for TKT-009. Let's keep the momentum going!\", \"timestamp\": \"2026-02-11T14:00:00\"}",
+  {
+    "message_id": "MSG-1061",
+    "channel": "#product-updates",
+    "author_id": "U001",
+    "content": "Just got out of our meeting with Pfizer regarding HL7 FHIR API integration. They're pushing for faster deployment to meet their compliance deadlines. Anyone know if we've made any progress on that front?",
+    "timestamp": "2026-02-10T11:05:00Z"
+  },
+  {
+    "message_id": "MSG-1062",
+    "channel": "#product-updates",
+    "author_id": "U005",
+    "content": "@Emily Wilson, I think we've made some progress on TKT-017, but we need to review the changes before deploying. I'll send over the updated code for your review.",
+    "timestamp": "2026-02-10T11:10:00Z"
+  },
+  {
+    "message_id": "MSG-1063",
+    "channel": "#product-updates",
+    "author_id": "U001",
+    "content": "Thanks @Isabella Brooks! I'll review the changes ASAP. Anyone know when we can expect to hear back from Novartis regarding their HL7 FHIR API integration requirements?",
+    "timestamp": "2026-02-10T11:15:00Z"
+  },
+  {
+    "message_id": "MSG-1064",
+    "channel": "#product-updates",
+    "author_id": "U014",
+    "content": "@Emily Wilson, did you know that J&J is also looking to integrate their HL7 FHIR API with our backend infrastructure? We should reach out to them and discuss their requirements as well.",
+    "timestamp": "2026-02-10T11:20:00Z"
+  },
+  {
+    "message_id": "MSG-1065",
+    "channel": "#product-updates",
+    "author_id": "U011",
+    "content": "Update on TKT-018: I've implemented the Customer Data Export feature, but I'm hitting some issues with data validation. Anyone have experience with this?",
+    "timestamp": "2026-02-10T11:25:00Z"
+  },
+  {
+    "message_id": "MSG-1066",
+    "channel": "#product-updates",
+    "author_id": "U008",
+    "content": "Just got done with a meeting with Novartis, and they're pushing for a 2-week deployment timeline for their HL7 FHIR API integration. We need to move quickly on this one.",
+    "timestamp": "2026-02-10T11:30:00Z"
+  },
+  {
+    "message_id": "MSG-1067",
+    "channel": "#product-updates",
+    "author_id": "U006",
+    "content": "@Elijah White, can you send over the updated deployment plan for Novartis? I want to make sure we're all on the same page.",
+    "timestamp": "2026-02-10T11:35:00Z"
+  },
+  {
+    "message_id": "MSG-1068",
+    "channel": "#product-updates",
+    "author_id": "U002",
+    "content": "Update on TKT-016: I've made some changes to the AI model training time, but we still need to run some benchmarks to verify the results.",
+    "timestamp": "2026-02-10T11:40:00Z"
+  },
+  {
+    "message_id": "MSG-1069",
+    "channel": "#product-updates",
+    "author_id": "U009",
+    "content": "Does anyone know when we can expect to hear back from J&J regarding their HL7 FHIR API integration requirements? We need to move forward with their implementation ASAP.",
+    "timestamp": "2026-02-10T11:45:00Z"
+  },
+  {
+    "message_id": "MSG-1070",
+    "channel": "#product-updates",
+    "author_id": "U007",
+    "content": "Just got out of a meeting with Pfizer, and they're pushing for us to prioritize their HL7 FHIR API integration over Novartis. What are our thoughts on this?",
+    "timestamp": "2026-02-10T11:50:00Z"
+  },
+  {
+    "message_id": "MSG-1071",
+    "channel": "#product-updates",
+    "author_id": "U012",
+    "content": "Let's keep the priority on Novartis. They're a major pharma customer, and we need to deliver on their integration requirements ASAP.",
+    "timestamp": "2026-02-10T11:55:00Z"
+  },
+  {
+    "message_id": "MSG-1072",
+    "channel": "#product-updates",
+    "author_id": "U016",
+    "content": "I agree with @Benjamin Lee. Let's keep the focus on Novartis and deliver on their requirements.",
+    "timestamp": "2026-02-10T12:00:00Z"
+  },
+  {
+    "message_id": "MSG-1073",
+    "channel": "#hr-confidential",
+    "author_id": "U001",
+    "content": "Just had a meeting with Ryan to discuss the status of TKT-005. Still no clear resolution on the HL7 FHIR data validation issue. Hope we can get some clarity soon!",
+    "timestamp": "2026-02-05T10:45:00"
+  },
+  {
+    "message_id": "MSG-1074",
+    "channel": "#hr-confidential",
+    "author_id": "U002",
+    "content": "TKT-005 is a major roadblock for our integration with Pfizer. Can we escalate this with the dev team?",
+    "timestamp": "2026-02-06T14:20:00"
+  },
+  {
+    "message_id": "MSG-1075",
+    "channel": "#hr-confidential",
+    "author_id": "U016",
+    "content": "I talked to Novartis about their experience with our HL7 FHIR API integration. They're having trouble with the same data validation issue. Maybe we can collaborate on a solution?",
+    "timestamp": "2026-02-08T11:10:00"
+  },
+  {
+    "message_id": "MSG-1076",
+    "channel": "#hr-confidential",
+    "author_id": "U009",
+    "content": "Just got off a call with Julian. He's concerned that TKT-019 will delay our AI model deployment by weeks. We need to get this moving!",
+    "timestamp": "2026-02-10T15:05:00"
+  },
+  {
+    "message_id": "MSG-1077",
+    "channel": "#hr-confidential",
+    "author_id": "U005",
+    "content": "Just reviewed the updated schedule for TKT-020. Looks like we're still on track for the BA Review next week. Fingers crossed!",
+    "timestamp": "2026-02-12T10:30:00"
+  },
+  {
+    "message_id": "MSG-1078",
+    "channel": "#hr-confidential",
+    "author_id": "U014",
+    "content": "TKT-014 is finally making progress. I'm optimistic that we'll see significant performance improvements soon. Thanks to the dev team for their hard work!",
+    "timestamp": "2026-02-15T13:40:00"
+  },
+  {
+    "message_id": "MSG-1079",
+    "channel": "#hr-confidential",
+    "author_id": "U011",
+    "content": "Just got word that J&J is interested in exploring our AI anomaly detection capabilities. This could be a huge win for us!",
+    "timestamp": "2026-02-17T11:15:00"
+  },
+  {
+    "message_id": "MSG-1080",
+    "channel": "#hr-confidential",
+    "author_id": "U007",
+    "content": "TKT-007 deployment is scheduled for tomorrow. Wish us luck!",
+    "timestamp": "2026-02-19T09:50:00"
+  },
+  {
+    "message_id": "MSG-1081",
+    "channel": "#hr-confidential",
+    "author_id": "U006",
+    "content": "Just had a productive call with Ava from Pfizer. We're making progress on the integration, but still have some hurdles to clear.",
+    "timestamp": "2026-02-22T14:35:00"
+  },
+  {
+    "message_id": "MSG-1082",
+    "channel": "#hr-confidential",
+    "author_id": "U003",
+    "content": "TKT-016 is starting to show promise. Let's keep the momentum going!",
+    "timestamp": "2026-02-24T11:00:00"
+  },
+  {
+    "message_id": "MSG-1083",
+    "channel": "#hr-confidential",
+    "author_id": "U018",
+    "content": "Just got word that Novartis is looking to renew their contract with us. This is huge news!",
+    "timestamp": "2026-02-26T15:50:00"
+  },
+  {
+    "message_id": "MSG-1084",
+    "channel": "#hr-confidential",
+    "author_id": "U015",
+    "content": "TKT-008 is finally entering QA. Fingers crossed that we can get this out the door soon.",
+    "timestamp": "2026-03-01T10:20:00"
+  },
+  {
+    "message_id": "MSG-1085",
+    "channel": "#customer-success",
+    "author_id": "U001",
+    "text": "Need an update on the FDA 21 CFR Part 11 compliance for TKT-001. Emily, please let me know if we're on track for the next audit.",
+    "timestamp": "2026-02-05T14:45:00.000Z"
+  },
+  {
+    "message_id": "MSG-1086",
+    "channel": "#customer-success",
+    "author_id": "U003",
+    "text": "Just finished testing the AI anomaly detection algorithm. Results look promising, but I'm concerned about the impact on performance. Will keep investigating.",
+    "timestamp": "2026-02-05T15:10:00.000Z"
+  },
+  {
+    "message_id": "MSG-1087",
+    "channel": "#customer-success",
+    "author_id": "U016",
+    "text": "Working with the Pfizer team to resolve TKT-017. They're experiencing issues with the HL7 FHIR API integration. Will keep you posted.",
+    "timestamp": "2026-02-05T16:00:00.000Z"
+  },
+  {
+    "message_id": "MSG-1088",
+    "channel": "#customer-success",
+    "author_id": "U002",
+    "text": "Ryan, I need your input on the AI anomaly detection algorithm. We need to finalize the deployment timeline for TKT-002.",
+    "timestamp": "2026-02-05T17:15:00.000Z"
+  },
+  {
+    "message_id": "MSG-1089",
+    "channel": "#customer-success",
+    "author_id": "U013",
+    "text": "Had a productive call with the J&J team. They're interested in implementing our solution for their data security needs. Will keep exploring opportunities.",
+    "timestamp": "2026-02-05T18:30:00.000Z"
+  },
+  {
+    "message_id": "MSG-1090",
+    "channel": "#customer-success",
+    "author_id": "U009",
+    "text": "Abigail, can you help me debug the HL7 FHIR API security audit for TKT-010? I'm getting some weird errors.",
+    "timestamp": "2026-02-06T09:00:00.000Z"
+  },
+  {
+    "message_id": "MSG-1091",
+    "channel": "#customer-success",
+    "author_id": "U021",
+    "text": "Good news! The AI model training time has been reduced significantly. Next step is to run some performance tests.",
+    "timestamp": "2026-02-06T10:30:00.000Z"
+  },
+  {
+    "message_id": "MSG-1092",
+    "channel": "#customer-success",
+    "author_id": "U017",
+    "text": "TKT-017 is still open. Pfizer is willing to do some additional testing to resolve the issue. Let's schedule a call to discuss next steps.",
+    "timestamp": "2026-02-06T11:45:00.000Z"
+  },
+  {
+    "message_id": "MSG-1093",
+    "channel": "#customer-success",
+    "author_id": "U005",
+    "text": "Working on the customer data export feature for TKT-018. Will keep you updated on the progress.",
+    "timestamp": "2026-02-06T13:00:00.000Z"
+  },
+  {
+    "message_id": "MSG-1094",
+    "channel": "#customer-success",
+    "author_id": "U008",
+    "text": "Had a call with the Novartis team. They're interested in our solution for their data security needs. Let's explore opportunities.",
+    "timestamp": "2026-02-07T10:00:00.000Z"
+  },
+  {
+    "message_id": "MSG-1095",
+    "channel": "#customer-success",
+    "author_id": "U010",
+    "text": "Need an update on the backend infrastructure upgrade for TKT-004. Is it still on track for deployment?",
+    "timestamp": "2026-02-07T11:15:00.000Z"
+  },
+  {
+    "message_id": "MSG-1096",
+    "channel": "#customer-success",
+    "author_id": "U014",
+    "text": "TKT-014 is still in progress. Will keep you updated on the progress with the HL7 FHIR API integration performance improvement.",
+    "timestamp": "2026-02-08T12:30:00.000Z"
+  },
+  {
+    "message_id": "MSG-1097",
+    "channel": "#compliance-watch",
+    "author_id": "U001",
+    "content": "Just spent the last 4 hours working on TKT-011 and the HIPAA compliance issues with FHIR API integration. Still can't get it to work. Does anyone have any ideas? @Ryan Thompson?",
+    "timestamp": "2026-02-02T12:30:00"
+  },
+  {
+    "message_id": "MSG-1098",
+    "channel": "#compliance-watch",
+    "author_id": "U002",
+    "content": "Just got off a call with Pfizer and they're complaining about the latest API integration issues. We need to get this sorted ASAP. @Emily Wilson can you please escalate this to our account manager?",
+    "timestamp": "2026-02-03T15:00:00"
+  },
+  {
+    "message_id": "MSG-1099",
+    "channel": "#compliance-watch",
+    "author_id": "U003",
+    "content": "TKT-006 is finally live! Great work @Oliver Lee @Isabella Brooks. Let's make sure to test it thoroughly before deploying to production.",
+    "timestamp": "2026-02-04T10:45:00"
+  },
+  {
+    "message_id": "MSG-1100",
+    "channel": "#compliance-watch",
+    "author_id": "U004",
+    "content": "Just reviewed the code for TKT-009 and it looks like we need to make some significant changes. Can we schedule a code review for tomorrow?",
+    "timestamp": "2026-02-05T14:20:00"
+  },
+  {
+    "message_id": "MSG-1101",
+    "channel": "#compliance-watch",
+    "author_id": "U005",
+    "content": "We're getting complaints from J&J about the latest API integration issues. Can we please prioritize this ASAP? @Sophia Patel @Ryan Thompson",
+    "timestamp": "2026-02-06T11:00:00"
+  },
+  {
+    "message_id": "MSG-1102",
+    "channel": "#compliance-watch",
+    "author_id": "U006",
+    "content": "TKT-014 is still blocked due to performance issues. Can we please escalate this to our infrastructure team?",
+    "timestamp": "2026-02-07T17:00:00"
+  },
+  {
+    "message_id": "MSG-1103",
+    "channel": "#compliance-watch",
+    "author_id": "U007",
+    "content": "Just got off a call with Novartis and they're experiencing issues with our FHIR API integration. Can we please review our code and provide a fix ASAP?",
+    "timestamp": "2026-02-08T12:15:00"
+  },
+  {
+    "message_id": "MSG-1104",
+    "channel": "#compliance-watch",
+    "author_id": "U008",
+    "content": "TKT-017 is finally open! Great work @Benjamin Lee @Abigail Patel. Let's make sure to prioritize this and get it deployed ASAP.",
+    "timestamp": "2026-02-09T14:50:00"
+  },
+  {
+    "message_id": "MSG-1105",
+    "channel": "#compliance-watch",
+    "author_id": "U009",
+    "content": "We're experiencing issues with our AI model accuracy. Can we please review our training data and provide a fix ASAP?",
+    "timestamp": "2026-02-10T11:05:00"
+  },
+  {
+    "message_id": "MSG-1106",
+    "channel": "#compliance-watch",
+    "author_id": "U010",
+    "content": "TKT-018 is still in progress. Can we please provide an update on the customer data export feature?",
+    "timestamp": "2026-02-11T17:20:00"
+  },
+  {
+    "message_id": "MSG-1107",
+    "channel": "#compliance-watch",
+    "author_id": "U011",
+    "content": "Just reviewed the code for TKT-015 and it looks like we need to make some significant changes. Can we schedule a code review for tomorrow?",
+    "timestamp": "2026-02-12T14:35:00"
+  },
+  {
+    "message_id": "MSG-1108",
+    "channel": "#compliance-watch",
+    "author_id": "U012",
+    "content": "We're getting complaints from Pfizer about the latest API integration issues. Can we please prioritize this ASAP?",
+    "timestamp": "2026-02-13T11:45:00"
+  },
+  {
+    "message_id": "MSG-1109",
+    "channel": "#standup",
+    "author_id": "U007",
+    "content": "Hey guys, just a heads up that I'm running late for standup today. I was stuck on the HL7 FHIR Integration Issue with FDA 21 CFR Part 11 Compliance ticket. Hope to catch up with you all soon!",
+    "timestamp": "2026-03-01T10:00:00"
+  },
+  {
+    "message_id": "MSG-1110",
+    "channel": "#standup",
+    "author_id": "U011",
+    "content": "Hey @Jackson, how's the status on the HL7 FHIR Data Validation ticket? We need to move on that ASAP.",
+    "timestamp": "2026-03-01T10:03:00"
+  },
+  {
+    "message_id": "MSG-1111",
+    "channel": "#standup",
+    "author_id": "U007",
+    "content": "Hey @Charlotte, the FDA 21 CFR Part 11 Compliance ticket is still blocked. I'll try to get an update from our PM today.",
+    "timestamp": "2026-03-01T10:05:00"
+  },
+  {
+    "message_id": "MSG-1112",
+    "channel": "#standup",
+    "author_id": "U015",
+    "content": "Hey @Jackson, I've made some progress on the AI Anomaly Detection Deployment. Just need to get the testing done before we can deploy.",
+    "timestamp": "2026-03-01T10:10:00"
+  },
+  {
+    "message_id": "MSG-1113",
+    "channel": "#standup",
+    "author_id": "U012",
+    "content": "Hey team, don't forget that we have our meeting with Novartis on Friday. We need to have our HL7 FHIR API Integration with Novartis updated before then.",
+    "timestamp": "2026-03-01T10:12:00"
+  },
+  {
+    "message_id": "MSG-1114",
+    "channel": "#standup",
+    "author_id": "U024",
+    "content": "Hey @Jackson, how's the status on the AI Anomaly Detection Algorithm Needs to be Improved ticket? We need to get that done ASAP.",
+    "timestamp": "2026-03-01T10:15:00"
+  },
+  {
+    "message_id": "MSG-1115",
+    "channel": "#standup",
+    "author_id": "U008",
+    "content": "Hey @Jackson, I've made some progress on the AI Model Training Time Needs to be Reduced ticket. Just need to get the results before we can move forward.",
+    "timestamp": "2026-03-01T10:18:00"
+  },
+  {
+    "message_id": "MSG-1116",
+    "channel": "#standup",
+    "author_id": "U021",
+    "content": "Hey @Charlotte, I've updated the HL7 FHIR API Integration with Pfizer. Let me know if it works as expected.",
+    "timestamp": "2026-03-01T10:20:00"
+  },
+  {
+    "message_id": "MSG-1117",
+    "channel": "#standup",
+    "author_id": "U010",
+    "content": "Hey @Jackson, don't forget that we have our internal security audit coming up. We need to make sure all our HIPAA Compliance Audit Findings are up to date.",
+    "timestamp": "2026-03-01T10:22:00"
+  },
+  {
+    "message_id": "MSG-1118",
+    "channel": "#standup",
+    "author_id": "U019",
+    "content": "Hey team, I've almost completed the Customer Data Export Feature. Just need to get the final testing done.",
+    "timestamp": "2026-03-01T10:25:00"
+  },
+  {
+    "message_id": "MSG-1119",
+    "channel": "#standup",
+    "author_id": "U017",
+    "content": "Hey @Jackson, I've made some progress on the FDA 21 CFR Part 11 Compliance Test Fails ticket. Just need to get the testing done before we can move forward.",
+    "timestamp": "2026-03-01T10:28:00"
+  },
+  {
+    "message_id": "MSG-1120",
+    "channel": "#standup",
+    "author_id": "U006",
+    "content": "Hey @Charlotte, I've updated the HL7 FHIR API Security Audit. Let me know if it works as expected.",
+    "timestamp": "2026-03-01T10:30:00"
+  }
+]

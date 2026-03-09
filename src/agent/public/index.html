@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enterprise AI RAG Dashboard</title>
+    <!-- Modern Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar glass-panel">
+            <div class="brand">
+                <i data-lucide="cpu" class="icon-brand"></i>
+                <h2>Neuro<span class="highlight">RAG</span></h2>
+            </div>
+            
+            <div class="nav-section">
+                <span>Tools Overview</span>
+                <ul>
+                    <li class="active"><i data-lucide="message-square"></i> Agent Console</li>
+                    <li class="disabled"><i data-lucide="database"></i> Postgres SQL</li>
+                    <li class="disabled"><i data-lucide="server"></i> MongoDB Logs</li>
+                    <li class="disabled"><i data-lucide="network"></i> Chroma Vectors</li>
+                </ul>
+            </div>
+
+            <div class="connection-status">
+                <div class="status-indicator"></div>
+                <div class="status-text">
+                    <span class="status-title">System Status</span>
+                    <span class="status-detail">Groq LPU Array Online</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-interface">
+            <header class="chat-header glass-panel">
+                <div class="header-info">
+                    <h1>Enterprise Data Router</h1>
+                    <p>Synthesizing structured DBs and unstructured logs.</p>
+                </div>
+                <div class="model-badge">
+                    <i data-lucide="zap"></i> Llama 3.3 Versatile (200 T/s)
+                </div>
+            </header>
+
+            <div class="chat-history" id="chat-history">
+                <div class="message system-message">
+                    <div class="avatar"><i data-lucide="bot"></i></div>
+                    <div class="message-content glass-panel">
+                        <p>Welcome to the NeuroRAG Dashboard. I am connected via Groq to both your <b>PostgreSQL</b> database (users, tickets) and <b>MongoDB</b> vector store (Slack messages). How can I help you today?</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-area glass-panel">
+                <!-- Audio Recording Indicator -->
+                <div class="recording-indicator" id="recording-indicator" style="display: none;">
+                    <div class="pulse"></div>
+                    <span>Listening to microphone via Whisper v3...</span>
+                </div>
+
+                <div class="input-wrapper">
+                    <button class="icon-btn audio-btn" id="audio-btn" title="Hold to Speak">
+                        <i data-lucide="mic"></i>
+                    </button>
+                    <textarea 
+                        id="user-input" 
+                        placeholder="Ask a complex question about tickets, blockers, and Slack..."
+                        rows="1"
+                    ></textarea>
+                    <button class="icon-btn send-btn" id="send-btn" title="Send Request">
+                        <i data-lucide="send"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Context Metdata Panel -->
+        <aside class="metadata-panel glass-panel">
+            <h3>Agentic Synthesis</h3>
+            <p class="subtitle">Real-time reasoning logs</p>
+            
+            <div class="steps-container" id="steps-container">
+                <div class="empty-state">
+                    <i data-lucide="activity"></i>
+                    <p>Waiting for query...</p>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Initialize Icons -->
+    <script>
+      lucide.createIcons();
+    </script>
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,587 @@
+[
+  {
+    "user_id": "U001",
+    "name": "Emily Wilson",
+    "department": "Executive",
+    "role": "CEO",
+    "access_level": 4,
+    "salary": 250000,
+    "manager_id": null
+  },
+  {
+    "user_id": "U002",
+    "name": "Ryan Thompson",
+    "department": "Executive",
+    "role": "CTO",
+    "access_level": 4,
+    "salary": 220000,
+    "manager_id": null
+  },
+  {
+    "user_id": "U003",
+    "name": "Sophia Patel",
+    "department": "Executive",
+    "role": "CPO",
+    "access_level": 4,
+    "salary": 280000,
+    "manager_id": null
+  },
+  {
+    "user_id": "U004",
+    "name": "Oliver Lee",
+    "department": "Executive",
+    "role": "CFO",
+    "access_level": 4,
+    "salary": 240000,
+    "manager_id": null
+  },
+  {
+    "user_id": "U005",
+    "name": "Isabella Brooks",
+    "department": "Sales",
+    "role": "VP Sales",
+    "access_level": 3,
+    "salary": 180000,
+    "manager_id": null
+  },
+  {
+    "user_id": "U006",
+    "name": "Ava Hernandez",
+    "department": "Business Analysis",
+    "role": "BA Director",
+    "access_level": 3,
+    "salary": 120000,
+    "manager_id": null
+  },
+  {
+    "user_id": "U007",
+    "name": "Jackson Martin",
+    "department": "Engineering",
+    "role": "Backend Engineering Manager",
+    "access_level": 3,
+    "salary": 150000,
+    "manager_id": null
+  },
+  {
+    "user_id": "U008",
+    "name": "Elijah White",
+    "department": "Engineering",
+    "role": "Frontend/Mobile Engineering Manager",
+    "access_level": 3,
+    "salary": 140000,
+    "manager_id": null
+  },
+  {
+    "user_id": "U009",
+    "name": "Mia Sanders",
+    "department": "QA",
+    "role": "QA Manager",
+    "access_level": 3,
+    "salary": 100000,
+    "manager_id": null
+  },
+  {
+    "user_id": "U010",
+    "name": "Alexander Russell",
+    "department": "Infrastructure",
+    "role": "DevOps Lead",
+    "access_level": 2,
+    "salary": 110000,
+    "manager_id": null
+  },
+  {
+    "user_id": "U011",
+    "name": "Charlotte Taylor",
+    "department": "Infrastructure",
+    "role": "Infrastructure Lead",
+    "access_level": 2,
+    "salary": 120000,
+    "manager_id": null
+  },
+  {
+    "user_id": "U012",
+    "name": "Benjamin Lee",
+    "department": "Infrastructure",
+    "role": "DB Administrator",
+    "access_level": 2,
+    "salary": 105000,
+    "manager_id": null
+  },
+  {
+    "user_id": "U013",
+    "name": "Abigail Patel",
+    "department": "Business Analysis",
+    "role": "Business Analyst",
+    "access_level": 1,
+    "salary": 60000,
+    "manager_id": "U006"
+  },
+  {
+    "user_id": "U014",
+    "name": "Caleb Brooks",
+    "department": "Business Analysis",
+    "role": "Business Analyst",
+    "access_level": 1,
+    "salary": 60000,
+    "manager_id": "U006"
+  },
+  {
+    "user_id": "U015",
+    "name": "Hailey Russell",
+    "department": "Business Analysis",
+    "role": "Business Analyst",
+    "access_level": 1,
+    "salary": 58000,
+    "manager_id": "U006"
+  },
+  {
+    "user_id": "U016",
+    "name": "Evelyn Hernandez",
+    "department": "Business Analysis",
+    "role": "Business Analyst",
+    "access_level": 1,
+    "salary": 60000,
+    "manager_id": "U006"
+  },
+  {
+    "user_id": "U017",
+    "name": "Liam Martin",
+    "department": "Back-end Engineers",
+    "role": "Backend Engineer",
+    "access_level": 1,
+    "salary": 85000,
+    "manager_id": "U007"
+  },
+  {
+    "user_id": "U018",
+    "name": "Sofia White",
+    "department": "Back-end Engineers",
+    "role": "Backend Engineer",
+    "access_level": 1,
+    "salary": 80000,
+    "manager_id": "U007"
+  },
+  {
+    "user_id": "U019",
+    "name": "Noah Russell",
+    "department": "Back-end Engineers",
+    "role": "Backend Engineer",
+    "access_level": 1,
+    "salary": 85000,
+    "manager_id": "U007"
+  },
+  {
+    "user_id": "U020",
+    "name": "Lily Martin",
+    "department": "Back-end Engineers",
+    "role": "Backend Engineer",
+    "access_level": 1,
+    "salary": 80000,
+    "manager_id": "U007"
+  },
+  {
+    "user_id": "U021",
+    "name": "Ava Taylor",
+    "department": "Back-end Engineers",
+    "role": "Backend Engineer",
+    "access_level": 1,
+    "salary": 85000,
+    "manager_id": "U007"
+  },
+  {
+    "user_id": "U022",
+    "name": "Julian White",
+    "department": "Back-end Engineers",
+    "role": "Backend Engineer",
+    "access_level": 1,
+    "salary": 80000,
+    "manager_id": "U007"
+  },
+  {
+    "user_id": "U023",
+    "name": "Emily Brooks",
+    "department": "Back-end Engineers",
+    "role": "Backend Engineer",
+    "access_level": 1,
+    "salary": 80000,
+    "manager_id": "U007"
+  },
+  {
+    "user_id": "U024",
+    "name": "Lucas Russell",
+    "department": "Back-end Engineers",
+    "role": "Backend Engineer",
+    "access_level": 1,
+    "salary": 85000,
+    "manager_id": "U007"
+  },
+  {
+    "user_id": "U025",
+    "name": "Charlotte Taylor",
+    "department": "Frontend Engineers",
+    "role": "Frontend Engineer",
+    "access_level": 1,
+    "salary": 75000,
+    "manager_id": "U008"
+  },
+  {
+    "user_id": "U026",
+    "name": "Mia Hernandez",
+    "department": "Frontend Engineers",
+    "role": "Frontend Engineer",
+    "access_level": 1,
+    "salary": 72000,
+    "manager_id": "U008"
+  },
+  {
+    "user_id": "U027",
+    "name": "Oliver Patel",
+    "department": "Frontend Engineers",
+    "role": "Frontend Engineer",
+    "access_level": 1,
+    "salary": 75000,
+    "manager_id": "U008"
+  },
+  {
+    "user_id": "U028",
+    "name": "Elijah Martin",
+    "department": "Frontend Engineers",
+    "role": "Frontend Engineer",
+    "access_level": 1,
+    "salary": 72000,
+    "manager_id": "U008"
+  },
+  {
+    "user_id": "U029",
+    "name": "Ava Russell",
+    "department": "Frontend Engineers",
+    "role": "Frontend Engineer",
+    "access_level": 1,
+    "salary": 75000,
+    "manager_id": "U008"
+  },
+  {
+    "user_id": "U030",
+    "name": "Jackson White",
+    "department": "Frontend Engineers",
+    "role": "Frontend Engineer",
+    "access_level": 1,
+    "salary": 72000,
+    "manager_id": "U008"
+  },
+  {
+    "user_id": "U031",
+    "name": "Liam Taylor",
+    "department": "Frontend Engineers",
+    "role": "Frontend Engineer",
+    "access_level": 1,
+    "salary": 75000,
+    "manager_id": "U008"
+  },
+  {
+    "user_id": "U032",
+    "name": "Sofia Brooks",
+    "department": "Frontend Engineers",
+    "role": "Frontend Engineer",
+    "access_level": 1,
+    "salary": 72000,
+    "manager_id": "U008"
+  },
+  {
+    "user_id": "U033",
+    "name": "Hailey White",
+    "department": "Mobile Engineers",
+    "role": "Mobile Engineer",
+    "access_level": 1,
+    "salary": 70000,
+    "manager_id": "U008"
+  },
+  {
+    "user_id": "U034",
+    "name": "Evelyn Russell",
+    "department": "Mobile Engineers",
+    "role": "Mobile Engineer",
+    "access_level": 1,
+    "salary": 68000,
+    "manager_id": "U008"
+  },
+  {
+    "user_id": "U035",
+    "name": "Benjamin Martin",
+    "department": "QA",
+    "role": "QA Engineer",
+    "access_level": 1,
+    "salary": 58000,
+    "manager_id": "U009"
+  },
+  {
+    "user_id": "U036",
+    "name": "Charlotte Brooks",
+    "department": "QA",
+    "role": "QA Engineer",
+    "access_level": 1,
+    "salary": 57000,
+    "manager_id": "U009"
+  },
+  {
+    "user_id": "U037",
+    "name": "Oliver White",
+    "department": "QA",
+    "role": "QA Engineer",
+    "access_level": 1,
+    "salary": 58000,
+    "manager_id": "U009"
+  },
+  {
+    "user_id": "U038",
+    "name": "Mia Patel",
+    "department": "DevOps Engineers",
+    "role": "DevOps Engineer",
+    "access_level": 1,
+    "salary": 75000,
+    "manager_id": "U010"
+  },
+  {
+    "user_id": "U039",
+    "name": "Jackson Russell",
+    "department": "DevOps Engineers",
+    "role": "DevOps Engineer",
+    "access_level": 1,
+    "salary": 70000,
+    "manager_id": "U010"
+  },
+  {
+    "user_id": "U040",
+    "name": "Lily Taylor",
+    "department": "DevOps Engineers",
+    "role": "DevOps Engineer",
+    "access_level": 1,
+    "salary": 75000,
+    "manager_id": "U010"
+  },
+  {
+    "user_id": "U041",
+    "name": "Liam Brooks",
+    "department": "DevOps Engineers",
+    "role": "DevOps Engineer",
+    "access_level": 1,
+    "salary": 70000,
+    "manager_id": "U010"
+  },
+  {
+    "user_id": "U042",
+    "name": "Sofia White",
+    "department": "Infrastructure Engineers",
+    "role": "Infrastructure Engineer",
+    "access_level": 1,
+    "salary": 68000,
+    "manager_id": "U011"
+  },
+  {
+    "user_id": "U043",
+    "name": "Hailey Martin",
+    "department": "Infrastructure Engineers",
+    "role": "Infrastructure Engineer",
+    "access_level": 1,
+    "salary": 67000,
+    "manager_id": "U011"
+  },
+  {
+    "user_id": "U044",
+    "name": "Evelyn Russell",
+    "department": "Infrastructure Engineers",
+    "role": "Infrastructure Engineer",
+    "access_level": 1,
+    "salary": 68000,
+    "manager_id": "U011"
+  },
+  {
+    "user_id": "U045",
+    "name": "Noah Patel",
+    "department": "Sales",
+    "role": "Sales Manager",
+    "access_level": 2,
+    "salary": 90000,
+    "manager_id": null
+  },
+  {
+    "user_id": "U046",
+    "name": "Abigail Hernandez",
+    "department": "Sales",
+    "role": "Sales Manager",
+    "access_level": 2,
+    "salary": 90000,
+    "manager_id": null
+  },
+  {
+    "user_id": "U047",
+    "name": "Ava Brooks",
+    "department": "Sales",
+    "role": "Sales Manager",
+    "access_level": 2,
+    "salary": 95000,
+    "manager_id": null
+  },
+  {
+    "user_id": "U048",
+    "name": "Lucas Taylor",
+    "department": "Sales",
+    "role": "Sales Manager",
+    "access_level": 2,
+    "salary": 90000,
+    "manager_id": null
+  },
+  {
+    "user_id": "U049",
+    "name": "Benjamin Lee",
+    "department": "Sales",
+    "role": "Account Executive",
+    "access_level": 1,
+    "salary": 60000,
+    "manager_id": "U045"
+  },
+  {
+    "user_id": "U050",
+    "name": "Mia Sanders",
+    "department": "Sales",
+    "role": "Account Executive",
+    "access_level": 1,
+    "salary": 58000,
+    "manager_id": "U046"
+  },
+  {
+    "user_id": "U051",
+    "name": "Jackson Martin",
+    "department": "Sales",
+    "role": "Account Executive",
+    "access_level": 1,
+    "salary": 65000,
+    "manager_id": "U047"
+  },
+  {
+    "user_id": "U052",
+    "name": "Lily Russell",
+    "department": "Sales",
+    "role": "Account Executive",
+    "access_level": 1,
+    "salary": 54000,
+    "manager_id": "U048"
+  },
+  {
+    "user_id": "U053",
+    "name": "Sofia White",
+    "department": "Customer Success",
+    "role": "Customer Success Manager",
+    "access_level": 2,
+    "salary": 80000,
+    "manager_id": null
+  },
+  {
+    "user_id": "U054",
+    "name": "Hailey Martin",
+    "department": "Customer Success",
+    "role": "Customer Success Manager",
+    "access_level": 2,
+    "salary": 75000,
+    "manager_id": null
+  },
+  {
+    "user_id": "U055",
+    "name": "Evelyn Russell",
+    "department": "Customer Success",
+    "role": "Customer Success Manager",
+    "access_level": 2,
+    "salary": 80000,
+    "manager_id": null
+  },
+  {
+    "user_id": "U056",
+    "name": "Ava Patel",
+    "department": "Customer Success",
+    "role": "Customer Success Manager",
+    "access_level": 2,
+    "salary": 75000,
+    "manager_id": null
+  },
+  {
+    "user_id": "U057",
+    "name": "Benjamin Brooks",
+    "department": "HR",
+    "role": "HR Director",
+    "access_level": 3,
+    "salary": 120000,
+    "manager_id": null
+  },
+  {
+    "user_id": "U058",
+    "name": "Emily Lee",
+    "department": "HR",
+    "role": "HR Staff",
+    "access_level": 1,
+    "salary": 55000,
+    "manager_id": "U057"
+  },
+  {
+    "user_id": "U059",
+    "name": "Oliver Martin",
+    "department": "HR",
+    "role": "HR Staff",
+    "access_level": 1,
+    "salary": 52000,
+    "manager_id": "U057"
+  },
+  {
+    "user_id": "U060",
+    "name": "Mia Taylor",
+    "department": "Finance",
+    "role": "Finance Analyst",
+    "access_level": 1,
+    "salary": 62000,
+    "manager_id": null
+  },
+  {
+    "user_id": "U061",
+    "name": "Jackson Russell",
+    "department": "Finance",
+    "role": "Finance Analyst",
+    "access_level": 1,
+    "salary": 60000,
+    "manager_id": null
+  },
+  {
+    "user_id": "U062",
+    "name": "Lily White",
+    "department": "Product Owners",
+    "role": "Product Owner",
+    "access_level": 2,
+    "salary": 120000,
+    "manager_id": null
+  },
+  {
+    "user_id": "U063",
+    "name": "Sofia Patel",
+    "department": "Product Owners",
+    "role": "Product Owner",
+    "access_level": 2,
+    "salary": 130000,
+    "manager_id": "U062"
+  },
+  {
+    "user_id": "U064",
+    "name": "Hailey Russell",
+    "department": "Product Owners",
+    "role": "Product Owner",
+    "access_level": 2,
+    "salary": 110000,
+    "manager_id": "U062"
+  },
+  {
+    "user_id": "U065",
+    "name": "Evelyn Brooks",
+    "department": "Product Owners",
+    "role": "Product Owner",
+    "access_level": 2,
+    "salary": 110000,
+    "manager_id": "U062"
+  }
+]
