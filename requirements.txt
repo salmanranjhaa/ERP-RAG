@@ -1,16 +1,28 @@
+# Core web framework
 fastapi
-uvicorn
+uvicorn[standard]
+python-multipart
+python-dotenv
+
+# Database drivers
 sqlalchemy
 psycopg2-binary
 pymongo
-llama-index
+
+# LlamaIndex — ONLY the packages actually used (not the giant metapackage)
+llama-index-core
 llama-index-llms-groq
 llama-index-embeddings-huggingface
-llama-index-vector-stores-mongodb
 llama-index-vector-stores-chroma
-python-dotenv
-pandas
-groq
+
+# Vector store
 chromadb
+
+# Graph DB
 neo4j
-python-multipart
+
+# LLM API client (for Whisper audio endpoint)
+groq
+
+# Data
+pandas
