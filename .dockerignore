@@ -1,0 +1,12 @@
+venv/
+.venv/
+__pycache__/
+.env
+.git/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+Thumbs.db
+requirements.freeze.txt
+.claude/

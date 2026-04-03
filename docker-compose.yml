@@ -13,6 +13,11 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d erp_database"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   pgadmin:
     image: dpage/pgadmin4
@@ -39,6 +44,11 @@ services:
     volumes:
       - mongodb_data:/data/db
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   mongo-express:
     image: mongo-express
@@ -66,8 +76,37 @@ services:
     volumes:
       - neo4j_data:/data
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:7474 || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+
+  app:
+    build: .
+    container_name: erp-rag-app
+    ports:
+      - "8000:8000"
+    environment:
+      POSTGRES_URI: postgresql://admin:adminpassword@postgres:5432/erp_database
+      MONGO_URI: mongodb://admin:adminpassword@mongodb:27017/
+      CHROMA_PATH: /app/chroma_data
+      NEO4J_URI: bolt://neo4j:7687
+    env_file:
+      - .env
+    depends_on:
+      postgres:
+        condition: service_healthy
+      mongodb:
+        condition: service_healthy
+      neo4j:
+        condition: service_healthy
+    restart: unless-stopped
+    volumes:
+      - chroma_data:/app/chroma_data
 
 volumes:
   postgres_data:
   mongodb_data:
   neo4j_data:
+  chroma_data:

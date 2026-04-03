@@ -141,7 +141,10 @@ def initialize_engines():
     # 3. Build Neo4j Custom Tool
     from llama_index.core.query_engine import CustomQueryEngine
     from neo4j import GraphDatabase
-    neo4j_driver = GraphDatabase.driver("bolt://localhost:7687", auth=("neo4j", "adminpassword"))
+    neo4j_driver = GraphDatabase.driver(
+        os.getenv("NEO4J_URI", "bolt://localhost:7687"),
+        auth=(os.getenv("NEO4J_USER", "neo4j"), os.getenv("NEO4J_PASSWORD", "adminpassword"))
+    )
     neo4j_schema = """
 Nodes:
 - Person (user_id, name, role, salary)
