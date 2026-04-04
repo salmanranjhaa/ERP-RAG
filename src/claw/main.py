@@ -122,7 +122,7 @@ def initialize_claw_agent():
     chroma_path = os.getenv("CHROMA_PATH", "/app/chroma_data")
     chroma_client = chromadb.PersistentClient(path=chroma_path)
     try:
-        collection = chroma_client.get_collection("slack_messages")
+        collection = chroma_client.get_collection("messages_index")
         from llama_index.vector_stores.chroma import ChromaVectorStore
         from llama_index.core import StorageContext
         vector_store = ChromaVectorStore(chroma_collection=collection)
