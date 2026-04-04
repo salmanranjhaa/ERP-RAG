@@ -61,14 +61,22 @@ class GroqWithFallback:
 # ─── Agent Initialization ─────────────────────────────────────────────────────
 def initialize_claw_agent():
     from llama_index.core import Settings, SQLDatabase, VectorStoreIndex
-    from llama_index.core.query_engine import NLSQLTableQueryEngine
+    from llama_index.core.query_engine import NLSQLTableQueryEngine, CustomQueryEngine
     from llama_index.core.tools import QueryEngineTool
-    from llama_index.core.agent import ReActAgent
-    from llama_index.core.query_engine import CustomQueryEngine
     from llama_index.embeddings.huggingface import HuggingFaceEmbedding
     from llama_index.llms.groq import Groq
     from sqlalchemy import create_engine
     import chromadb
+
+    # ── Agent import: try modern API (0.11+) first, fall back to legacy (0.10.x)
+    try:
+        from llama_index.core.agent import ReActAgentWorker, AgentRunner
+        _use_modern_api = True
+        print("[STRATA] Using modern AgentRunner API")
+    except ImportError:
+        from llama_index.core.agent import ReActAgent
+        _use_modern_api = False
+        print("[STRATA] Using legacy ReActAgent API")
 
     api_key = os.getenv("GROQ_API_KEY")
     if not api_key:
@@ -211,24 +219,35 @@ Relationships:
     )
 
     # ── ReACT Agent ───────────────────────────────────────────────────────────
-    _agent_kwargs = dict(
-        tools=[sql_tool, chroma_tool, neo4j_tool, general_tool],
-        llm=active_llm,
-        verbose=True,
-        max_iterations=10,
-    )
+    _tools = [sql_tool, chroma_tool, neo4j_tool, general_tool]
     _system_prompt = (
         "You are STRATA — an autonomous enterprise intelligence agent. "
         "You have access to structured ERP data (SQL), conversational Slack logs (vectors), "
         "and an organizational graph (Neo4j). Reason step by step, use multiple tools when needed, "
         "and synthesize a comprehensive final answer. Always explain your reasoning chain."
     )
-    try:
-        # llama-index-core 0.10.x uses `context`
-        agent = ReActAgent.from_tools(**_agent_kwargs, context=_system_prompt)
-    except TypeError:
-        # llama-index-core 0.11.x renamed it to `system_prompt`
-        agent = ReActAgent.from_tools(**_agent_kwargs, system_prompt=_system_prompt)
+
+    if _use_modern_api:
+        # llama-index 0.11+ / 0.12+: AgentRunner wraps a ReActAgentWorker
+        worker = ReActAgentWorker.from_tools(
+            tools=_tools,
+            llm=active_llm,
+            verbose=True,
+            max_iterations=10,
+        )
+        agent = AgentRunner(worker)
+    else:
+        # llama-index 0.10.x: ReActAgent.from_tools with context param
+        try:
+            agent = ReActAgent.from_tools(
+                tools=_tools, llm=active_llm, verbose=True,
+                max_iterations=10, context=_system_prompt
+            )
+        except TypeError:
+            agent = ReActAgent.from_tools(
+                tools=_tools, llm=active_llm, verbose=True,
+                max_iterations=10, system_prompt=_system_prompt
+            )
 
     print("STRATA ReACT Agent initialized successfully.")
     return agent, active_llm
