@@ -7,6 +7,35 @@ const stepsContainer = document.getElementById('steps-container');
 const sidebarNav = document.getElementById('sidebar-nav');
 let conversationHistory = [];
 
+// Progress bar (YouTube-style)
+const barFill = document.getElementById('page-bar-fill');
+const progress = {
+  _iv: null,
+  start() {
+    clearInterval(this._iv);
+    barFill.style.transition = 'none';
+    barFill.style.width = '0%';
+    barFill.style.opacity = '1';
+    let w = 0;
+    this._iv = setInterval(() => {
+      w += (86 - w) * 0.09 + 0.4;
+      if (w >= 85) { clearInterval(this._iv); w = 85; }
+      barFill.style.transition = 'width 0.2s ease';
+      barFill.style.width = w + '%';
+    }, 180);
+  },
+  done() {
+    clearInterval(this._iv);
+    barFill.style.transition = 'width 0.15s ease';
+    barFill.style.width = '100%';
+    setTimeout(() => {
+      barFill.style.transition = 'opacity 0.35s ease';
+      barFill.style.opacity = '0';
+      setTimeout(() => { barFill.style.width = '0%'; }, 400);
+    }, 180);
+  }
+};
+
 // Tab Switching Logic
 sidebarNav.querySelectorAll('li').forEach(li => {
     li.addEventListener('click', () => {
@@ -82,6 +111,7 @@ sendBtn.addEventListener('click', async () => {
     userInput.value = '';
     addMessage(text, true);
     clearLogs();
+    progress.start();
     
     updateLog("Initializing Query", "Routing through Multi-Source Synthesis Engine...");
     
@@ -95,6 +125,7 @@ sendBtn.addEventListener('click', async () => {
         });
         
         const data = await response.json();
+        progress.done();
         
         if (!response.ok) {
             throw new Error(data.detail || "Unknown Server Error");
@@ -110,6 +141,7 @@ sendBtn.addEventListener('click', async () => {
         addMessage(data.response);
         conversationHistory.push({ role: 'assistant', content: data.response });
     } catch (err) {
+        progress.done();
         addMessage(`Error: ${err.message}`);
         updateLog("Error", err.message);
     }
@@ -176,6 +208,7 @@ async function sendAudio(audioBlob) {
     const formData = new FormData();
     formData.append("audio", audioBlob, "recording.webm");
     formData.append("history", JSON.stringify(conversationHistory));
+    progress.start();
 
     try {
         const response = await fetch('/chat/audio', {
@@ -184,6 +217,7 @@ async function sendAudio(audioBlob) {
         });
         
         const data = await response.json();
+        progress.done();
         
         if (!response.ok) {
             throw new Error(data.detail || "Unknown Server Error");
@@ -202,6 +236,7 @@ async function sendAudio(audioBlob) {
         addMessage(data.response);
         conversationHistory.push({ role: 'assistant', content: data.response });
     } catch (err) {
+        progress.done();
         addMessage(`Error: ${err.message}`);
         updateLog("Error", err.message);
     }

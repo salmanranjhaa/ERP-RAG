@@ -1,0 +1,345 @@
+import os
+import json
+from pathlib import Path
+from fastapi import FastAPI, UploadFile, File, Form, HTTPException
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel
+from typing import List, Optional
+from dotenv import load_dotenv
+
+load_dotenv()
+
+STATIC_DIR = Path(__file__).parent / "public"
+
+app = FastAPI(title="OpenClaw Agent", version="1.0.0")
+
+# ─── Global State ─────────────────────────────────────────────────────────────
+react_agent = None
+llm = None
+groq_client = None
+
+
+# ─── Request Models ────────────────────────────────────────────────────────────
+class ChatRequest(BaseModel):
+    query: str
+    history: List[dict] = []
+
+
+# ─── LLM with Fallback ────────────────────────────────────────────────────────
+class GroqWithFallback:
+    def __init__(self, api_key: str):
+        from llama_index.llms.groq import Groq
+        self.primary = Groq(model="moonshotai/kimi-k2-instruct", api_key=api_key, temperature=0.1)
+        self.fallback = Groq(model="llama-3.3-70b-versatile", api_key=api_key, temperature=0.1)
+        self._active = self.primary
+
+    def complete(self, prompt: str):
+        try:
+            return self._active.complete(prompt)
+        except Exception as e:
+            if "rate" in str(e).lower() or "429" in str(e):
+                self._active = self.fallback
+                return self._active.complete(prompt)
+            raise
+
+    def chat(self, messages):
+        try:
+            return self._active.chat(messages)
+        except Exception as e:
+            if "rate" in str(e).lower() or "429" in str(e):
+                self._active = self.fallback
+                return self._active.chat(messages)
+            raise
+
+    # Proxy all other attributes to the active LLM
+    def __getattr__(self, name):
+        return getattr(self._active, name)
+
+
+# ─── Agent Initialization ─────────────────────────────────────────────────────
+def initialize_claw_agent():
+    from llama_index.core import Settings, SQLDatabase, VectorStoreIndex
+    from llama_index.core.query_engine import NLSQLTableQueryEngine
+    from llama_index.core.tools import QueryEngineTool
+    from llama_index.core.agent import ReActAgent
+    from llama_index.core.query_engine import CustomQueryEngine
+    from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+    from llama_index.llms.groq import Groq
+    from sqlalchemy import create_engine
+    import chromadb
+
+    api_key = os.getenv("GROQ_API_KEY")
+    if not api_key:
+        raise RuntimeError("GROQ_API_KEY is not set")
+
+    # LLM
+    primary_llm = Groq(model="moonshotai/kimi-k2-instruct", api_key=api_key, temperature=0.1)
+    fallback_llm = Groq(model="llama-3.3-70b-versatile", api_key=api_key, temperature=0.1)
+    active_llm = primary_llm
+
+    embed_model = HuggingFaceEmbedding(model_name="all-MiniLM-L6-v2")
+    Settings.embed_model = embed_model
+    Settings.llm = active_llm
+
+    # ── 1. SQL Tool (PostgreSQL) ──────────────────────────────────────────────
+    pg_uri = os.getenv("POSTGRES_URI", "postgresql://admin:adminpassword@postgres:5432/erp_database")
+    pg_engine = create_engine(pg_uri)
+    sql_database = SQLDatabase(
+        pg_engine,
+        include_tables=["users", "tickets", "ticket_blockers"],
+        sample_rows_in_table_info=2
+    )
+    sql_query_engine = NLSQLTableQueryEngine(
+        sql_database=sql_database,
+        llm=active_llm,
+        tables=["users", "tickets", "ticket_blockers"],
+        context_str_prefix=(
+            "Schema context:\n"
+            "- users(user_id, name, role, department, salary, manager_id): "
+            "C-suite roles are CEO, CFO, CTO, CPO. Departments include Engineering, QA, DevOps, "
+            "Sales, HR, Finance, Product, BA.\n"
+            "- tickets(ticket_id, title, type, status, priority, assignee_id, reporter_id, sprint): "
+            "status values: Open, In Progress, In Review, Blocked, Done. "
+            "priority values: Critical, High, Medium, Low.\n"
+            "- ticket_blockers(blocker_id, ticket_id, blocked_by_ticket_id): links blocking relationships.\n"
+        )
+    )
+    sql_tool = QueryEngineTool.from_defaults(
+        query_engine=sql_query_engine,
+        name="sql_database_tool",
+        description=(
+            "Query structured company data: employees (name, role, department, salary, manager), "
+            "tickets (status, priority, type, assignee, reporter, sprint), and blocker relationships. "
+            "Use for questions about people, org hierarchy, ticket status, or workload distribution."
+        )
+    )
+
+    # ── 2. ChromaDB Vector Tool (Slack messages) ──────────────────────────────
+    chroma_path = os.getenv("CHROMA_PATH", "/app/chroma_data")
+    chroma_client = chromadb.PersistentClient(path=chroma_path)
+    try:
+        collection = chroma_client.get_collection("slack_messages")
+        from llama_index.vector_stores.chroma import ChromaVectorStore
+        from llama_index.core import StorageContext
+        vector_store = ChromaVectorStore(chroma_collection=collection)
+        storage_context = StorageContext.from_defaults(vector_store=vector_store)
+        chroma_index = VectorStoreIndex.from_vector_store(
+            vector_store, storage_context=storage_context, embed_model=embed_model
+        )
+        chroma_engine = chroma_index.as_query_engine(llm=active_llm, similarity_top_k=5)
+    except Exception:
+        from llama_index.core import VectorStoreIndex
+        chroma_index = VectorStoreIndex([])
+        chroma_engine = chroma_index.as_query_engine(llm=active_llm)
+
+    chroma_tool = QueryEngineTool.from_defaults(
+        query_engine=chroma_engine,
+        name="slack_vector_tool",
+        description=(
+            "Search Slack messages semantically. Use for questions about team discussions, "
+            "blockers mentioned in conversations, what teams are saying, channel-specific updates, "
+            "or any unstructured communication logs."
+        )
+    )
+
+    # ── 3. Neo4j Graph Tool ───────────────────────────────────────────────────
+    neo4j_schema = """
+Nodes: Person(user_id, name, role, salary), Ticket(ticket_id, title, type, priority),
+Department(name), Status(name), Sprint(name)
+Relationships:
+- (Person)-[:WORKS_IN]->(Department)
+- (Person)-[:REPORTS_TO]->(Person)
+- (Person)-[:ASSIGNED_TO]->(Ticket)
+- (Ticket)-[:BLOCKED_BY]->(Ticket)
+- (Ticket)-[:CURRENT_STATUS]->(Status)
+- (Ticket)-[:ASSIGNED_TO_SPRINT]->(Sprint)
+"""
+
+    class Neo4jQueryEngine(CustomQueryEngine):
+        def custom_query(self, query_str: str):
+            from neo4j import GraphDatabase
+            neo4j_driver = GraphDatabase.driver(
+                os.getenv("NEO4J_URI", "bolt://neo4j:7687"),
+                auth=(os.getenv("NEO4J_USER", "neo4j"), os.getenv("NEO4J_PASSWORD", "adminpassword"))
+            )
+            prompt = (
+                f"Given this Neo4j schema:\n{neo4j_schema}\n\n"
+                f"Write a Cypher query to answer: {query_str}\n"
+                "Return only the pure Cypher query, no markdown or explanation."
+            )
+            cypher = active_llm.complete(prompt).text.strip().replace("```cypher", "").replace("```", "")
+            try:
+                with neo4j_driver.session() as session:
+                    result = session.run(cypher)
+                    records = [dict(r) for r in result]
+                return f"Cypher: {cypher}\nResults: {records}"
+            except Exception as e:
+                return f"Neo4j error: {e}\nCypher attempted: {cypher}"
+            finally:
+                neo4j_driver.close()
+
+    neo4j_tool = QueryEngineTool.from_defaults(
+        query_engine=Neo4jQueryEngine(),
+        name="neo4j_graph_tool",
+        description=(
+            "Query the organizational graph for relationship-based questions: "
+            "reporting chains, who manages whom, ticket blocker chains, "
+            "department composition, or multi-hop relationship traversal."
+        )
+    )
+
+    # ── 4. General Knowledge Fallback ─────────────────────────────────────────
+    class GeneralKnowledgeEngine(CustomQueryEngine):
+        def custom_query(self, query_str: str):
+            prompt = (
+                "You are OpenClaw, a powerful enterprise AI agent with deep general knowledge. "
+                "Answer the following question from your own knowledge — no company data needed.\n\n"
+                f"Question: {query_str}"
+            )
+            return active_llm.complete(prompt).text.strip()
+
+    general_tool = QueryEngineTool.from_defaults(
+        query_engine=GeneralKnowledgeEngine(),
+        name="general_knowledge_tool",
+        description=(
+            "Answer general knowledge questions NOT about this company's data. "
+            "Examples: 'what is C-suite', 'explain Agile', 'what is FHIR', "
+            "'what does a Product Manager do'. Do NOT use for company-specific queries."
+        )
+    )
+
+    # ── ReACT Agent ───────────────────────────────────────────────────────────
+    agent = ReActAgent.from_tools(
+        tools=[sql_tool, chroma_tool, neo4j_tool, general_tool],
+        llm=active_llm,
+        verbose=True,
+        max_iterations=10,
+        context=(
+            "You are OpenClaw — an autonomous enterprise intelligence agent. "
+            "You have access to structured ERP data (SQL), conversational Slack logs (vectors), "
+            "and an organizational graph (Neo4j). Reason step by step, use multiple tools when needed, "
+            "and synthesize a comprehensive final answer. "
+            "Always explain your reasoning chain."
+        )
+    )
+
+    print("OpenClaw ReACT Agent initialized.")
+    return agent, active_llm
+
+
+# ─── History Condensation ─────────────────────────────────────────────────────
+def condense_query(query: str, history: List[dict], llm) -> str:
+    if not history:
+        return query
+    history_str = "\n".join(
+        f"{m['role'].capitalize()}: {m['content']}" for m in history[-6:]
+    )
+    prompt = (
+        f"Given this conversation:\n{history_str}\n\n"
+        f"Rephrase the follow-up question as a standalone query: {query}\n"
+        "Return only the rephrased question."
+    )
+    try:
+        return llm.complete(prompt).text.strip()
+    except Exception:
+        return query
+
+
+# ─── Step Info Extraction ─────────────────────────────────────────────────────
+def extract_step_info(step_output) -> dict:
+    content = ""
+    try:
+        if hasattr(step_output.output, 'message') and step_output.output.message:
+            content = step_output.output.message.content
+        elif hasattr(step_output.output, 'response'):
+            content = str(step_output.output.response)
+        else:
+            content = str(step_output.output)
+    except Exception:
+        content = str(step_output)
+    return {"content": content, "is_done": step_output.is_done}
+
+
+# ─── Startup ──────────────────────────────────────────────────────────────────
+@app.on_event("startup")
+async def startup_event():
+    global react_agent, llm
+    try:
+        react_agent, llm = initialize_claw_agent()
+    except Exception as e:
+        print(f"[OpenClaw] Initialization error: {e}")
+
+
+# ─── Routes ───────────────────────────────────────────────────────────────────
+@app.get("/health")
+async def health():
+    return {"status": "operational", "agent": "openclaw-react", "ready": react_agent is not None}
+
+
+@app.post("/chat")
+async def chat(request: ChatRequest):
+    if not react_agent:
+        raise HTTPException(status_code=503, detail="Agent not initialized yet")
+
+    condensed = condense_query(request.query, request.history, llm)
+
+    try:
+        task = react_agent.create_task(condensed)
+        reasoning_steps = []
+        step_count = 0
+
+        while step_count < 10:
+            step_output = react_agent.run_step(task.task_id)
+            step_info = extract_step_info(step_output)
+            step_info["step"] = step_count + 1
+            reasoning_steps.append(step_info)
+            step_count += 1
+            if step_output.is_done:
+                break
+
+        final = react_agent.finalize_response(task.task_id)
+        response_text = getattr(final, 'response', str(final))
+
+        return JSONResponse({
+            "query": request.query,
+            "condensed_query": condensed,
+            "response": response_text,
+            "reasoning_chain": reasoning_steps,
+            "total_steps": step_count
+        })
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/chat/audio")
+async def chat_audio(
+    audio: UploadFile = File(...),
+    history: str = Form(default="[]")
+):
+    if not react_agent:
+        raise HTTPException(status_code=503, detail="Agent not initialized yet")
+
+    import groq as groq_sdk
+    audio_bytes = await audio.read()
+    client = groq_sdk.Groq(api_key=os.getenv("GROQ_API_KEY"))
+
+    transcription = client.audio.transcriptions.create(
+        file=("audio.webm", audio_bytes, "audio/webm"),
+        model="whisper-large-v3",
+        language="en"
+    )
+    query = transcription.text
+
+    try:
+        history_list = json.loads(history)
+    except Exception:
+        history_list = []
+
+    chat_request = ChatRequest(query=query, history=history_list)
+    return await chat(chat_request)
+
+
+# ─── Static Files (served last so API routes take priority) ───────────────────
+app.mount("/", StaticFiles(directory=str(STATIC_DIR), html=True), name="static")
