@@ -102,7 +102,10 @@ class ERPGraph:
 def main():
     print("Initializing Neo4j Graph Database...")
     try:
-        graph = ERPGraph("bolt://localhost:7687", "neo4j", "adminpassword")
+        neo4j_uri = os.getenv("NEO4J_URI", "bolt://localhost:7687")
+        neo4j_user = os.getenv("NEO4J_USER", "neo4j")
+        neo4j_pw = os.getenv("NEO4J_PASSWORD", "adminpassword")
+        graph = ERPGraph(neo4j_uri, neo4j_user, neo4j_pw)
         graph.wipe_db()
         print("Wiped existing graph.")
         
