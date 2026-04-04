@@ -12,7 +12,7 @@ Both agents query across structured databases, unstructured conversational logs,
 [![LlamaIndex](https://img.shields.io/badge/LlamaIndex-Core-purple)](https://llamaindex.ai)
 [![Groq](https://img.shields.io/badge/LLM-Groq%20%7C%20Kimi%20K2-orange)](https://groq.com)
 [![Docker](https://img.shields.io/badge/Docker-Compose-blue?logo=docker)](https://docker.com)
-[![License](https://img.shields.io/badge/License-MIT-lightgrey)](LICENSE)
+
 
 ---
 
