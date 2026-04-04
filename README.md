@@ -318,8 +318,4 @@ docker stats
 git pull origin main && docker compose build app && docker compose up -d app
 ```
 
----
 
-## License
-
-MIT License — see [LICENSE](LICENSE) for details.
