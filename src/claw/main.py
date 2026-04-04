@@ -1,5 +1,6 @@
 import os
 import json
+import traceback
 from pathlib import Path
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.staticfiles import StaticFiles
@@ -210,22 +211,28 @@ Relationships:
     )
 
     # ── ReACT Agent ───────────────────────────────────────────────────────────
-    agent = ReActAgent.from_tools(
+    _agent_kwargs = dict(
         tools=[sql_tool, chroma_tool, neo4j_tool, general_tool],
         llm=active_llm,
         verbose=True,
         max_iterations=10,
-        context=(
-            "You are OpenClaw — an autonomous enterprise intelligence agent. "
-            "You have access to structured ERP data (SQL), conversational Slack logs (vectors), "
-            "and an organizational graph (Neo4j). Reason step by step, use multiple tools when needed, "
-            "and synthesize a comprehensive final answer. "
-            "Always explain your reasoning chain."
-        )
     )
+    _system_prompt = (
+        "You are STRATA — an autonomous enterprise intelligence agent. "
+        "You have access to structured ERP data (SQL), conversational Slack logs (vectors), "
+        "and an organizational graph (Neo4j). Reason step by step, use multiple tools when needed, "
+        "and synthesize a comprehensive final answer. Always explain your reasoning chain."
+    )
+    try:
+        # llama-index-core 0.10.x uses `context`
+        agent = ReActAgent.from_tools(**_agent_kwargs, context=_system_prompt)
+    except TypeError:
+        # llama-index-core 0.11.x renamed it to `system_prompt`
+        agent = ReActAgent.from_tools(**_agent_kwargs, system_prompt=_system_prompt)
 
-    print("OpenClaw ReACT Agent initialized.")
+    print("STRATA ReACT Agent initialized successfully.")
     return agent, active_llm
+
 
 
 # ─── History Condensation ─────────────────────────────────────────────────────
@@ -268,7 +275,9 @@ async def startup_event():
     try:
         react_agent, llm = initialize_claw_agent()
     except Exception as e:
-        print(f"[OpenClaw] Initialization error: {e}")
+        print(f"[STRATA] Initialization FAILED: {e}")
+        print(f"[STRATA] Full traceback:")
+        traceback.print_exc()
 
 
 # ─── Routes ───────────────────────────────────────────────────────────────────

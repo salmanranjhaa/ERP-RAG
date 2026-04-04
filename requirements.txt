@@ -9,13 +9,13 @@ sqlalchemy
 psycopg2-binary
 pymongo
 
-# LlamaIndex — ONLY the packages actually used (not the giant metapackage)
-llama-index-core
-llama-index-llms-groq
-llama-index-embeddings-huggingface
-llama-index-vector-stores-chroma
+# LlamaIndex — pinned to stable 0.10.x (ReActAgent.from_tools API is stable here)
+llama-index-core>=0.10.0,<0.12.0
+llama-index-llms-groq>=0.1.0,<0.3.0
+llama-index-embeddings-huggingface>=0.2.0,<0.4.0
+llama-index-vector-stores-chroma>=0.1.0,<0.3.0
 
-# HuggingFace embedding model runner (required by llama-index-embeddings-huggingface)
+# HuggingFace embedding model runner
 sentence-transformers
 
 # Vector store
