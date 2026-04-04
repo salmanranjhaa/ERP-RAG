@@ -176,13 +176,37 @@ Relationships:
         name="neo4j_graph_tool",
         description="Useful for querying complex relationships like chains of command, manager dependencies, or complex ticket blockers (e.g. 'what tickets block X' or 'who is the manager of the person blocking Y')."
     )
-    
+
+    # 4. General Knowledge Fallback Tool
+    # Handles questions that are NOT about company data — lets the LLM answer from its own knowledge
+    class GeneralKnowledgeQueryEngine(CustomQueryEngine):
+        def custom_query(self, query_str: str):
+            prompt = (
+                "You are a helpful enterprise AI assistant with broad general knowledge. "
+                "The user is asking a question that does not require looking up any company data — "
+                "answer it using your own training knowledge. Be concise and accurate.\n\n"
+                f"Question: {query_str}"
+            )
+            return llm.complete(prompt).text.strip()
+
+    general_tool = QueryEngineTool.from_defaults(
+        query_engine=GeneralKnowledgeQueryEngine(),
+        name="general_knowledge_tool",
+        description=(
+            "Use this tool ONLY for general knowledge questions that are NOT about this company's specific "
+            "employees, tickets, projects, Slack messages, or data. Examples of questions for this tool: "
+            "'what is C-suite?', 'what does Agile mean?', 'explain HL7 FHIR', 'what is FDA 21 CFR Part 11', "
+            "'how does a RAG system work?', 'what is a Product Manager?'. "
+            "Do NOT use this for anything involving specific people, salaries, tickets, blockers, or Slack logs."
+        )
+    )
+
     # LLMMultiSelector allows the router to read the question, determine it needs BOTH SQL and Vector context,
     # pull them both simultaneously, and synthesize an expert final answer.
     from llama_index.core.selectors import LLMMultiSelector
     router_query_engine = RouterQueryEngine(
         selector=LLMMultiSelector.from_defaults(llm=llm),
-        query_engine_tools=[sql_tool, mongo_tool, neo4j_tool],
+        query_engine_tools=[sql_tool, mongo_tool, neo4j_tool, general_tool],
     )
     print("Initialization Complete!")
 
