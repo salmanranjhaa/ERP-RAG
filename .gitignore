@@ -11,7 +11,9 @@ build/
 
 # Environment variables (secrets)
 .env
-.env.*
+.env.local
+.env.*.local
+# .env.example is intentionally tracked — it's a safe template
 
 # Vector store / database data
 chroma_data/
