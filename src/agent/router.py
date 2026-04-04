@@ -18,7 +18,6 @@ from llama_index.core.agent import ReActAgent
 from llama_index.llms.groq import Groq
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.core import Settings
-from llama_index.vector_stores.mongodb import MongoDBAtlasVectorSearch
 
 # Load env variables
 load_dotenv()
