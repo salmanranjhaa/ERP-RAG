@@ -321,11 +321,23 @@ async def chat(request: ChatRequest):
         verbose_output = captured.getvalue()
         reasoning_steps = parse_verbose_trace(verbose_output)
 
-        # response may be a string, AgentOutput, or have .response attr
+        # LlamaIndex 0.12.x: AgentOutput.response is a ChatMessage object
+        # Extract the text content from whatever structure we get
         if hasattr(response, 'response'):
-            response_text = response.response
+            r = response.response
+            # ChatMessage has .content
+            if hasattr(r, 'content'):
+                response_text = r.content or str(r)
+            elif isinstance(r, str):
+                response_text = r
+            else:
+                response_text = str(r)
         elif hasattr(response, 'output'):
-            response_text = str(response.output)
+            o = response.output
+            if hasattr(o, 'content'):
+                response_text = o.content or str(o)
+            else:
+                response_text = str(o)
         else:
             response_text = str(response)
 
