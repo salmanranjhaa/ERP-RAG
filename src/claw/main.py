@@ -68,15 +68,24 @@ def initialize_claw_agent():
     from sqlalchemy import create_engine
     import chromadb
 
-    # ── Agent import: try modern API (0.11+) first, fall back to legacy (0.10.x)
+    # ── Agent import: correct paths for LlamaIndex 0.11+ and 0.10.x ─────────
     try:
-        from llama_index.core.agent import ReActAgentWorker, AgentRunner
+        # 0.11+: ReActAgentWorker lives in the react submodule
+        from llama_index.core.agent.react.base import ReActAgentWorker
+        from llama_index.core.agent import AgentRunner
         _use_modern_api = True
-        print("[STRATA] Using modern AgentRunner API")
+        print("[STRATA] Using modern AgentRunner API (0.11+)")
     except ImportError:
-        from llama_index.core.agent import ReActAgent
-        _use_modern_api = False
-        print("[STRATA] Using legacy ReActAgent API")
+        try:
+            # 0.10.x: both in llama_index.core.agent
+            from llama_index.core.agent import ReActAgentWorker, AgentRunner
+            _use_modern_api = True
+            print("[STRATA] Using AgentRunner API (0.10.x)")
+        except ImportError:
+            # Very old: fall back to legacy ReActAgent.from_tools
+            from llama_index.core.agent import ReActAgent
+            _use_modern_api = False
+            print("[STRATA] Using legacy ReActAgent API")
 
     api_key = os.getenv("GROQ_API_KEY")
     if not api_key:
