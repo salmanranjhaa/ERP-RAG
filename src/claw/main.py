@@ -68,24 +68,9 @@ def initialize_claw_agent():
     from sqlalchemy import create_engine
     import chromadb
 
-    # ── Agent import: correct paths for LlamaIndex 0.11+ and 0.10.x ─────────
-    try:
-        # 0.11+: ReActAgentWorker lives in the react submodule
-        from llama_index.core.agent.react.base import ReActAgentWorker
-        from llama_index.core.agent import AgentRunner
-        _use_modern_api = True
-        print("[STRATA] Using modern AgentRunner API (0.11+)")
-    except ImportError:
-        try:
-            # 0.10.x: both in llama_index.core.agent
-            from llama_index.core.agent import ReActAgentWorker, AgentRunner
-            _use_modern_api = True
-            print("[STRATA] Using AgentRunner API (0.10.x)")
-        except ImportError:
-            # Very old: fall back to legacy ReActAgent.from_tools
-            from llama_index.core.agent import ReActAgent
-            _use_modern_api = False
-            print("[STRATA] Using legacy ReActAgent API")
+    # ── Agent import ────────────────────────────────────────────────────────────────
+    # LlamaIndex 0.12+ uses direct instantiation — no from_tools classmethod
+    from llama_index.core.agent import ReActAgent
 
     api_key = os.getenv("GROQ_API_KEY")
     if not api_key:
@@ -227,7 +212,7 @@ Relationships:
         )
     )
 
-    # ── ReACT Agent ───────────────────────────────────────────────────────────
+    # ── Build agent (LlamaIndex 0.12.x workflow API) ───────────────────────
     _tools = [sql_tool, chroma_tool, neo4j_tool, general_tool]
     _system_prompt = (
         "You are STRATA — an autonomous enterprise intelligence agent. "
@@ -236,27 +221,12 @@ Relationships:
         "and synthesize a comprehensive final answer. Always explain your reasoning chain."
     )
 
-    if _use_modern_api:
-        # llama-index 0.11+ / 0.12+: AgentRunner wraps a ReActAgentWorker
-        worker = ReActAgentWorker.from_tools(
-            tools=_tools,
-            llm=active_llm,
-            verbose=True,
-            max_iterations=10,
-        )
-        agent = AgentRunner(worker)
-    else:
-        # llama-index 0.10.x: ReActAgent.from_tools with context param
-        try:
-            agent = ReActAgent.from_tools(
-                tools=_tools, llm=active_llm, verbose=True,
-                max_iterations=10, context=_system_prompt
-            )
-        except TypeError:
-            agent = ReActAgent.from_tools(
-                tools=_tools, llm=active_llm, verbose=True,
-                max_iterations=10, system_prompt=_system_prompt
-            )
+    agent = ReActAgent(
+        tools=_tools,
+        llm=active_llm,
+        verbose=True,
+        max_iterations=10,
+    )
 
     print("STRATA ReACT Agent initialized successfully.")
     return agent, active_llm
@@ -296,6 +266,24 @@ def extract_step_info(step_output) -> dict:
     return {"content": content, "is_done": step_output.is_done}
 
 
+# ─── Verbose trace parser (LlamaIndex 0.12.x) ────────────────────────────────
+def parse_verbose_trace(raw: str) -> list:
+    """Extract Thought/Action/Observation lines from agent verbose stdout."""
+    steps = []
+    for line in raw.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        low = line.lower()
+        if low.startswith("thought:") or "> thought" in low:
+            steps.append({"content": line, "is_done": False})
+        elif low.startswith("action:") or low.startswith("action input:") or "> action" in low:
+            steps.append({"content": line, "is_done": False})
+        elif low.startswith("observation:") or "> observation" in low:
+            steps.append({"content": line, "is_done": False})
+    return steps
+
+
 # ─── Startup ──────────────────────────────────────────────────────────────────
 @app.on_event("startup")
 async def startup_event():
@@ -321,32 +309,36 @@ async def chat(request: ChatRequest):
 
     condensed = condense_query(request.query, request.history, llm)
 
+    import io, sys
+    old_stdout = sys.stdout
+    sys.stdout = captured = io.StringIO()
+
     try:
-        task = react_agent.create_task(condensed)
-        reasoning_steps = []
-        step_count = 0
+        # LlamaIndex 0.12.x: ReActAgent.run() is async
+        response = await react_agent.run(condensed)
+        sys.stdout = old_stdout
 
-        while step_count < 10:
-            step_output = react_agent.run_step(task.task_id)
-            step_info = extract_step_info(step_output)
-            step_info["step"] = step_count + 1
-            reasoning_steps.append(step_info)
-            step_count += 1
-            if step_output.is_done:
-                break
+        verbose_output = captured.getvalue()
+        reasoning_steps = parse_verbose_trace(verbose_output)
 
-        final = react_agent.finalize_response(task.task_id)
-        response_text = getattr(final, 'response', str(final))
+        # response may be a string, AgentOutput, or have .response attr
+        if hasattr(response, 'response'):
+            response_text = response.response
+        elif hasattr(response, 'output'):
+            response_text = str(response.output)
+        else:
+            response_text = str(response)
 
         return JSONResponse({
             "query": request.query,
             "condensed_query": condensed,
             "response": response_text,
             "reasoning_chain": reasoning_steps,
-            "total_steps": step_count
+            "total_steps": len(reasoning_steps)
         })
 
     except Exception as e:
+        sys.stdout = old_stdout
         raise HTTPException(status_code=500, detail=str(e))
 
 
